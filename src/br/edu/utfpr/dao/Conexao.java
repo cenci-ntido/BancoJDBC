@@ -28,8 +28,13 @@ public class Conexao {
         }
         return instancia;
     }
-    
-    public static void main(String[] args) {
-        getInstance();
+//    
+//    public static void main(String[] args) {
+//        getInstance();
+//    }
+
+    public Connection getConexao() {
+        return conexao;
     }
+    
 }
