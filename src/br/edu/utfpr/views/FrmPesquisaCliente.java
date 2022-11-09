@@ -5,7 +5,7 @@
  */
 package br.edu.utfpr.views;
 
-//import br.edu.utfpr.dao.ClienteDao;
+import br.edu.utfpr.dao.ClienteDao;
 import br.edu.utfpr.entidades.Cliente;
 import br.edu.utfpr.models.ClienteListModel;
 import java.util.List;
@@ -18,8 +18,8 @@ public class FrmPesquisaCliente extends javax.swing.JInternalFrame {
     public FrmPesquisaCliente() {
         initComponents();
         super.setTitle("Tela de Clientes");
-        //ClienteDao clienteDao = new ClienteDao();
-        //listaCliente = clienteDao.findAll();
+        ClienteDao clienteDao = new ClienteDao();
+        listaCliente = clienteDao.findAll();
         clienteListModel = new ClienteListModel(listaCliente);
         tblClientes.setModel(clienteListModel);
     }

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 
-/*public class CarroDao extends AbstractDaoImpl<Carro> {
+public class CarroDao extends AbstractDaoImpl<Carro> {
 
     private PreparedStatement pstm; //insert, update e delete
     private ResultSet rs; //select
@@ -148,4 +148,9 @@ import java.sql.Statement;
         }
         return listaCarros;
     }
-}*/
+
+    @Override
+    public List<Carro> mountList(ResultSet res) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

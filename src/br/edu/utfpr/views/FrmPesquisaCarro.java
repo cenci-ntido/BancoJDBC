@@ -1,6 +1,7 @@
 package br.edu.utfpr.views;
 
 //import br.edu.utfpr.dao.CarroDao
+import br.edu.utfpr.dao.CarroDao;
 import br.edu.utfpr.entidades.Carro;
 import br.edu.utfpr.models.CarroListModel;
 import java.util.List;
@@ -15,8 +16,8 @@ public class FrmPesquisaCarro extends javax.swing.JInternalFrame {
     public FrmPesquisaCarro() {
         initComponents();
         super.setTitle("Tela de Clientes");
-        //CarroDao carroDao = new CarroDao();
-        //listaCarro = carroDao.findAll();
+        CarroDao carroDao = new CarroDao();
+        listaCarro = carroDao.findAll();
         carroListModel = new CarroListModel(listaCarro);
         tblCarros.setModel(carroListModel);
 

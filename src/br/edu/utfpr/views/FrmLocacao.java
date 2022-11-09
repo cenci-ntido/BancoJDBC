@@ -1,14 +1,21 @@
 package br.edu.utfpr.views;
 
+import br.edu.utfpr.dao.CarroDao;
+import br.edu.utfpr.dao.ClienteDao;
 import br.edu.utfpr.entidades.Carro;
 import br.edu.utfpr.entidades.Cliente;
 
 public class FrmLocacao extends javax.swing.JDialog {
-
+    private ClienteDao clienteDao;
+    private CarroDao carroDao;
 
     public FrmLocacao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        clienteDao = new ClienteDao();
+        clienteDao.findAll().forEach(cliente -> cbCliente.addItem(cliente));
+        carroDao = new CarroDao();
+        carroDao.findAll().forEach(carro -> cbCarro.addItem(carro));
     }
 
 

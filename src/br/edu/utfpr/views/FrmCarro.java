@@ -5,7 +5,7 @@
  */
 package br.edu.utfpr.views;
 
-//import br.edu.utfpr.dao.CarroDao;
+import br.edu.utfpr.dao.CarroDao;
 import br.edu.utfpr.entidades.Acessorio;
 import br.edu.utfpr.entidades.Carro;
 import br.edu.utfpr.models.AcessorioListModel;
@@ -35,14 +35,14 @@ public class FrmCarro extends javax.swing.JDialog {
         this.linhaSelecionada = linhaSelecionada;
         this.edit = edit;
 
-        /*carroDao = new CarroDao();
-        Carro car = carroDao.findById(idCarro);
-
-        tfCodigo.setText(String.valueOf(car.getCodigo()));
-        tfMarca.setText(car.getMarca());
-        tfModelo.setText(car.getModelo());
-        spAnoModelo.setValue(car.getAnoModelo());
-        spAnoFabricacao.setValue(car.getAnoFabricacao());*/
+//        carroDao = new CarroDao();
+//        Carro car = carroDao.findById(idCarro);
+//
+//        tfCodigo.setText(String.valueOf(car.getCodigo()));
+//        tfMarca.setText(car.getMarca());
+//        tfModelo.setText(car.getModelo());
+//        spAnoModelo.setValue(car.getAnoModelo());
+//        spAnoFabricacao.setValue(car.getAnoFabricacao());
 
     }
 
@@ -256,7 +256,7 @@ public class FrmCarro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        //save();
+        save();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 //    private AcessorioListModel acessorioListModel;
@@ -356,7 +356,7 @@ public class FrmCarro extends javax.swing.JDialog {
         return carro;
     }
 
-    /*private CarroDao carroDao;
+    private CarroDao carroDao;
 
    
     private void save() {
@@ -372,6 +372,6 @@ public class FrmCarro extends javax.swing.JDialog {
             carroListModel.atualizarModel(linhaSelecionada, carro);
             this.dispose();
         }
-    }*/
+    }
 
 }

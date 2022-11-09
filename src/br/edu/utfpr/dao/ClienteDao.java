@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  *
  * @author Andreia
  */
-/*public class ClienteDao extends AbstractDaoImpl<Cliente> {
+public class ClienteDao extends AbstractDaoImpl<Cliente> {
 
     private PreparedStatement pstm; //insert, update e delete
     private ResultSet rs; //select
@@ -100,4 +100,9 @@ import java.sql.ResultSet;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-}*/
+    @Override
+    public List<Cliente> mountList(ResultSet res) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+}
