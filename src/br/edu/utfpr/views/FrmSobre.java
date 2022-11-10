@@ -44,7 +44,7 @@ public class FrmSobre extends javax.swing.JDialog {
 
         jLabel1.setText("Programador:");
 
-        jLabel2.setText("UTFPR");
+        jLabel2.setText("Tiago Cenci");
 
         jLabel3.setText("Organização :");
 
