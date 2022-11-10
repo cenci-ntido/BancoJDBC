@@ -27,11 +27,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        mnCliente = new javax.swing.JMenuItem();
-        mnCarro = new javax.swing.JMenuItem();
-        mnLocacao = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menuSobre = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -49,37 +51,39 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGap(0, 332, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Cadastro");
-
-        mnCliente.setText("Cliente");
-        mnCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnClienteActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnCliente);
-
-        mnCarro.setText("Carro");
-        mnCarro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnCarroActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnCarro);
-
-        mnLocacao.setText("Locação");
-        mnLocacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLocacaoActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnLocacao);
+        jMenu1.setText("Cadastros");
         jMenu1.add(jSeparator1);
 
+        jMenuItem4.setText("Matéria Prima");
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setText("Receita");
+        jMenu1.add(jMenuItem5);
+
         mnSair.setText("Sair");
+        mnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSairActionPerformed(evt);
+            }
+        });
         jMenu1.add(mnSair);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Processos");
+
+        jMenuItem2.setText("Compra");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Produção");
+        jMenu2.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu2);
 
         menuSobre.setText("Sobre");
         menuSobre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,19 +109,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnClienteActionPerformed
-     
-        FrmPesquisaCliente frmPesquisaCliente = new FrmPesquisaCliente();
-        desktop.add(frmPesquisaCliente);
-        frmPesquisaCliente.setVisible(true);
-        try {
-            frmPesquisaCliente.setMaximum(true);
-        }catch (PropertyVetoException ex){
-            ex.printStackTrace();                    
-        }
-        
-    }//GEN-LAST:event_mnClienteActionPerformed
-
     private void menuSobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSobreMouseClicked
         FrmSobre frmSobre = new FrmSobre(this, true);
         frmSobre.setLocationRelativeTo(null);
@@ -125,28 +116,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frmSobre.focus();
     }//GEN-LAST:event_menuSobreMouseClicked
 
-    private void mnCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCarroActionPerformed
-        FrmPesquisaCarro frmPesquisaCarro = new FrmPesquisaCarro();
-        desktop.add(frmPesquisaCarro);
-        frmPesquisaCarro.setVisible(true);
-        try {
-            frmPesquisaCarro.setMaximum(true);
-        }catch (PropertyVetoException ex){
-            ex.printStackTrace();                    
-        }
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    }//GEN-LAST:event_mnCarroActionPerformed
-
-    private void mnLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLocacaoActionPerformed
-        FrmPesquisaLocacao frmPesquisaLocacao = new FrmPesquisaLocacao();
-        desktop.add(frmPesquisaLocacao);
-        frmPesquisaLocacao.setVisible(true);
-        try {
-            frmPesquisaLocacao.setMaximum(true);
-        }catch (PropertyVetoException ex){
-            ex.printStackTrace();                    
-        }
-    }//GEN-LAST:event_mnLocacaoActionPerformed
+    private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,13 +165,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuSobre;
-    private javax.swing.JMenuItem mnCarro;
-    private javax.swing.JMenuItem mnCliente;
-    private javax.swing.JMenuItem mnLocacao;
     private javax.swing.JMenuItem mnSair;
     // End of variables declaration//GEN-END:variables
 }
