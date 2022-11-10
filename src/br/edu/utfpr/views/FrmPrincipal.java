@@ -55,6 +55,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jMenuItem4.setText("Matéria Prima");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Receita");
@@ -123,6 +128,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnSairActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+//        FrmPesquisaMateriaPrima frmPesquisaMateriaPrima = new FrmPesquisaMateriaPrima();
+//        desktop.add(frmPesquisaMateriaPrima);
+//        frmPesquisaMateriaPrima.setVisible(true);
+//        try {
+//            frmPesquisaMateriaPrima.setMaximum(true);
+//        }catch (PropertyVetoException ex){
+//            ex.printStackTrace();                    
+//        }
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
