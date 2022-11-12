@@ -1,12 +1,9 @@
-
 package br.edu.utfpr.views;
 
 import java.beans.PropertyVetoException;
 import javax.swing.JFrame;
 
-
 public class FrmPrincipal extends javax.swing.JFrame {
-
 
     public FrmPrincipal() {
         initComponents();
@@ -130,15 +127,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnSairActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-//        FrmPesquisaMateriaPrima frmPesquisaMateriaPrima = new FrmPesquisaMateriaPrima();
-//        desktop.add(frmPesquisaMateriaPrima);
-//        frmPesquisaMateriaPrima.setVisible(true);
-//        try {
-//            frmPesquisaMateriaPrima.setMaximum(true);
-//        }catch (PropertyVetoException ex){
-//            ex.printStackTrace();                    
-//        }
-
+        FrmPesquisaMateriaPrima frmPesquisaMateriaPrima = new FrmPesquisaMateriaPrima();
+        desktop.add(frmPesquisaMateriaPrima);
+        frmPesquisaMateriaPrima.setVisible(true);
+        try {
+            frmPesquisaMateriaPrima.setMaximum(true);
+        }catch (PropertyVetoException ex){
+            ex.printStackTrace();                    
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
