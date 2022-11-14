@@ -1,6 +1,5 @@
 package br.edu.utfpr.views;
 
-
 import br.edu.utfpr.dao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.MateriaPrimaListModel;
@@ -43,9 +42,9 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("..:: Pesquisa de Carro ::..");
+        setTitle("..:: Pesquisa de Matérias Primas ::..");
 
-        jLabel1.setText("Modelo :");
+        jLabel1.setText("Descrição:");
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -62,7 +61,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
@@ -85,24 +84,9 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Modelo", "Marca", "Ano Fabricação", "Ano Modelo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(tblCarros);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -145,16 +129,17 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        FrmMateriaPrima frmMateriaPrima = new FrmMateriaPrima();
+        FrmMateriaPrima frmMateriaPrima = new FrmMateriaPrima(null, true);
+        frmMateriaPrima.setLocationRelativeTo(null);
         frmMateriaPrima.setVisible(true);
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-       // editar();
+        // editar();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-      //  excluir();
+        //  excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed

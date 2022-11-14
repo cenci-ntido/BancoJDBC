@@ -7,7 +7,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     public FrmPrincipal() {
         initComponents();
-        super.setTitle("Locação de Veículos");
+        super.setTitle("Controle de produções");
         super.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
