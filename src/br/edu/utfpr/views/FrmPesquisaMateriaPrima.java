@@ -1,6 +1,6 @@
 package br.edu.utfpr.views;
 
-import br.edu.utfpr.dao.MateriaPrimaDao;
+import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.MateriaPrimaListModel;
 import java.util.List;

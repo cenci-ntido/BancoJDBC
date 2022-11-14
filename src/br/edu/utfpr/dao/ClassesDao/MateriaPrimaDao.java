@@ -1,5 +1,6 @@
-package br.edu.utfpr.dao;
+package br.edu.utfpr.dao.ClassesDao;
 
+import br.edu.utfpr.dao.AbstractDaoImpl;
 import br.edu.utfpr.entidades.MateriaPrima;
 import java.util.List;
 import java.sql.PreparedStatement;

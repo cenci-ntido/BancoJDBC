@@ -8,12 +8,12 @@ public class Compra {
    private LocalDate data;
    private Float valor;
    private List<MateriaPrima> materiasPrima;
-   private Integer quantidade;
+   private Float quantidade;
 
     public Compra() {
     }
 
-    public Compra(Integer id, LocalDate data, Float valor, List<MateriaPrima> materiasPrima, Integer quantidade) {
+    public Compra(Integer id, LocalDate data, Float valor, List<MateriaPrima> materiasPrima, Float quantidade) {
         this.id = id;
         this.data = data;
         this.valor = valor;
@@ -37,7 +37,7 @@ public class Compra {
         return materiasPrima;
     }
 
-    public Integer getQuantidade() {
+    public Float getQuantidade() {
         return quantidade;
     }
 
@@ -57,7 +57,7 @@ public class Compra {
         this.materiasPrima = materiasPrima;
     }
 
-    public void setQuantidade(Integer quantidade) {
+    public void setQuantidade(Float quantidade) {
         this.quantidade = quantidade;
     }
    
