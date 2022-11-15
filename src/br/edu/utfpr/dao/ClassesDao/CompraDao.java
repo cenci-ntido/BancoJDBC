@@ -43,21 +43,21 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         }
 
     }
-//
-//    @Override
-//    public List<MateriaPrima> findAll() {
-//        try {
-//            pstm = getConn().prepareStatement("SELECT * FROM materiaprima");
-//            rs = pstm.executeQuery();
-//            return mountList();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//            return null;
-//        } finally {
-//            super.closePreparedStatement(pstm);
-//            super.closeResultSet(rs);
-//        }
-//    }
+
+    @Override
+    public List<Compra> findAll() {
+        try {
+            pstm = getConn().prepareStatement("SELECT * FROM compra");
+            rs = pstm.executeQuery();
+            return mountList();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
+    }
 
     @Override
     public boolean delete(int id) {
@@ -73,108 +73,85 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         }
     }
 
-//    @Override
-//    public MateriaPrima findById(int id) {
-//        try {
-//            pstm = getConn().prepareStatement("SELECT  * from materiaprima WHERE id = ?");
-//            pstm.setInt(1, id);
-//            rs = pstm.executeQuery();
-//            if (rs.next()) {
-//                return mount(rs);
-//            }
-//            return null;
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//            return null;
-//        } finally {
-//            super.closePreparedStatement(pstm);
-//            super.closeResultSet(rs);
-//        }
-//    }
-//
-//    @Override
-//    public MateriaPrima update(MateriaPrima materiaPrima) {
-//        try {
-//            pstm = getConn().prepareStatement("UPDATE materiaprima "
-//                    + "SET descricao=?, unidade=?, saldo=?"
-//                    + "WHERE id=?");
-//
-//            pstm.setString(1, materiaPrima.getDescricao());
-//            pstm.setString(2, materiaPrima.getUnidade());
-//            pstm.setFloat(3, materiaPrima.getSaldo());
-//            pstm.setInt(4, materiaPrima.getId());
-//            if (pstm.executeUpdate() > 0) {
-//                return materiaPrima;
-//            }
-//            return null;
-//
-//            // Se a atualização acontecer corretamente, o valor é a quantidade de linhas afetada na execuação,
-//            //senão retorna 0 indicando que a  atualização não afetou nenhuma linha.
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//            return null;
-//        } finally {
-//            super.closePreparedStatement(pstm);
-//            super.closeResultSet(rs);
-//        }
-//    }
-//
-//    @Override
-//    public MateriaPrima mount(ResultSet res) {
-//        try {
-//            MateriaPrima materiaPrima = new MateriaPrima();
-//            materiaPrima.setId(rs.getInt("id"));
-//            materiaPrima.setDescricao(rs.getString("descricao"));
-//            materiaPrima.setUnidade(rs.getString("unidade"));
-//            materiaPrima.setSaldo(rs.getFloat("saldo"));
-//            return materiaPrima;
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//            return null;
-//        }
-//    }
-//
-//    private List<MateriaPrima> mountList() {
-//        List<MateriaPrima> listaMp = new ArrayList();
-//        try {
-//            while (rs.next()) {
-//                MateriaPrima materiaPrima = mount(rs);
-//                listaMp.add(materiaPrima);
-//            }
-//
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//        }
-//        return listaMp;
-//    }
-//
-//    @Override
-//    public List<MateriaPrima> mountList(ResultSet res) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
     @Override
-    public Compra update(Compra obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Compra findById(int id) {
+        try {
+            pstm = getConn().prepareStatement("SELECT  * from compra WHERE id = ?");
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                return mount(rs);
+            }
+            return null;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
     }
 
     @Override
-    public Compra findById(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public Compra update(Compra compra) {
+        try {
+            pstm = getConn().prepareStatement("UPDATE compra "
+                    + "SET descricao=?, unidade=?, saldo=?"
+                    + "WHERE id=?");
 
-    @Override
-    public List<Compra> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            pstm.setString(1, materiaPrima.getDescricao());
+            pstm.setString(2, materiaPrima.getUnidade());
+            pstm.setFloat(3, materiaPrima.getSaldo());
+            pstm.setInt(4, materiaPrima.getId());
+            if (pstm.executeUpdate() > 0) {
+                return materiaPrima;
+            }
+            return null;
+
+            // Se a atualização acontecer corretamente, o valor é a quantidade de linhas afetada na execuação,
+            //senão retorna 0 indicando que a  atualização não afetou nenhuma linha.
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
     }
 
     @Override
     public Compra mount(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Compra compra = new Compra();
+            compra.setId(rs.getInt("id"));
+            compra.setData((LocalDate)rs.getDate("data"));
+            compra.setMateriasPrima(rs.getObject("materiaprima", MateriaPrima ));
+            compra.setQuantidade(rs.getFloat("quantidade"));
+            compra.setValor(rs.getFloat("valor"));
+            return compra;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    private List<Compra> mountList() {
+        List<Compra> listaMp = new ArrayList();
+        try {
+            while (rs.next()) {
+                Compra compra = mount(rs);
+                listaMp.add(compra);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+        }
+        return listaMp;
     }
 
     @Override
-    public List<Compra> mountList(ResultSet res) {
+    public List<MateriaPrima> mountList(ResultSet res) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

@@ -7,17 +7,17 @@ public class Compra {
    private Integer id;
    private LocalDate data;
    private Float valor;
-   private List<MateriaPrima> materiasPrima;
+   private MateriaPrima materiaPrima;
    private Float quantidade;
 
     public Compra() {
     }
 
-    public Compra(Integer id, LocalDate data, Float valor, List<MateriaPrima> materiasPrima, Float quantidade) {
+    public Compra(Integer id, LocalDate data, Float valor, MateriaPrima materiaPrima, Float quantidade) {
         this.id = id;
         this.data = data;
         this.valor = valor;
-        this.materiasPrima = materiasPrima;
+        this.materiaPrima = materiaPrima;
         this.quantidade = quantidade;
     }
 
@@ -33,8 +33,8 @@ public class Compra {
         return valor;
     }
 
-    public List<MateriaPrima> getMateriasPrima() {
-        return materiasPrima;
+    public MateriaPrima getMateriasPrima() {
+        return materiaPrima;
     }
 
     public Float getQuantidade() {
@@ -53,8 +53,8 @@ public class Compra {
         this.valor = valor;
     }
 
-    public void setMateriasPrima(List<MateriaPrima> materiasPrima) {
-        this.materiasPrima = materiasPrima;
+    public void setMateriasPrima(MateriaPrima materiaPrima) {
+        this.materiaPrima = materiaPrima;
     }
 
     public void setQuantidade(Float quantidade) {

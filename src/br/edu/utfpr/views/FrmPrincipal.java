@@ -119,7 +119,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSobreMouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        FrmPesquisaCompra frmPesquisaCompra = new FrmPesquisaCompra();
+        desktop.add(frmPesquisaCompra);
+        frmPesquisaCompra.setVisible(true);
+        try {
+            frmPesquisaCompra.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
@@ -132,8 +139,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frmPesquisaMateriaPrima.setVisible(true);
         try {
             frmPesquisaMateriaPrima.setMaximum(true);
-        }catch (PropertyVetoException ex){
-            ex.printStackTrace();                    
+        } catch (PropertyVetoException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
