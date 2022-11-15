@@ -2,20 +2,23 @@ package br.edu.utfpr.views;
 
 import br.edu.utfpr.dao.ClassesDao.CompraDao;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
+import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import br.edu.utfpr.models.CompraListModel;
+import java.time.LocalDate;
 
 public class FrmCompra extends javax.swing.JDialog {
-
+    
     private MateriaPrimaDao materiaPrimaDao;
-
+    
     public FrmCompra(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds.getDescricao()));
-
+        
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -115,7 +118,7 @@ public class FrmCompra extends javax.swing.JDialog {
         });
 
         try {
-            tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -210,10 +213,11 @@ public class FrmCompra extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        save();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -286,5 +290,32 @@ public class FrmCompra extends javax.swing.JDialog {
     private javax.swing.JTextField tfValor;
     private javax.swing.JTextField tfValor1;
     // End of variables declaration//GEN-END:variables
-
+    private Compra getCompra() {
+        MateriaPrimaDao mpDao = new MateriaPrimaDao();
+        Compra compra = new Compra();
+        compra.setData(LocalDate.parse(tfData.getText()));
+        compra.setValor(Float.valueOf(tfValor.getText()));
+        compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
+        compra.setMateriasPrima(mpDao.findByDescricao(cbMatPrima.getSelectedItem().toString()));
+        return compra;
+    }
+    private int linhaSelecionada;
+    private CompraDao compraDao;
+    private CompraListModel compraListModel;
+    private boolean edit = false;
+    
+    private void save() {
+        Compra compra = getCompra();
+        compraDao = new CompraDao();
+        if (!edit) {
+            compraDao.insert(compra);
+            compraListModel.insertModel(compra);
+            this.dispose();
+        } else {
+            compra.setId(Integer.parseInt(tfCodigo.getText()));
+            compraDao.update(compra);
+            compraListModel.atualizarModel(linhaSelecionada, compra);
+            this.dispose();
+        }
+    }
 }

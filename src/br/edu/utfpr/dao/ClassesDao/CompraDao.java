@@ -3,6 +3,7 @@ package br.edu.utfpr.dao.ClassesDao;
 import br.edu.utfpr.dao.AbstractDaoImpl;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import java.lang.System.Logger;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CompraDao extends AbstractDaoImpl<Compra> {
@@ -22,11 +24,12 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         try {
             pstm = getConn().prepareStatement("INSERT INTO compra\n"
                     + "(\"data\", valor, materiaprima, quantidade)\n"
-                    + "VALUES((?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                    + "VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 //Statement.RETURN_GENERATED_KEYS permite recuperar as chaves geradas automaticamente por meio do método getGeneratedKeys
             pstm.setDate(1, java.sql.Date.valueOf(compra.getData()));
             pstm.setFloat(2, compra.getValor());
-            pstm.setObject(3, compra.getMateriasPrima());
+            pstm.setInt(3, compra.getMateriasPrima().getId());
+            pstm.setFloat(4, compra.getQuantidade());
             if (pstm.executeUpdate() > 0) { //Executa uma instrução SQL referente a um INSERT, UPDATE e DELETE, o retorno é o número de linhas afetadas
                 rs = pstm.getGeneratedKeys();//Recupera todas as chaves geradas automaticamente 
                 rs.next();
@@ -96,15 +99,16 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
     public Compra update(Compra compra) {
         try {
             pstm = getConn().prepareStatement("UPDATE compra "
-                    + "SET descricao=?, unidade=?, saldo=?"
+                    + "SET data=?, materiaprima=?, valor=?, quantidade=?"
                     + "WHERE id=?");
 
-            pstm.setString(1, materiaPrima.getDescricao());
-            pstm.setString(2, materiaPrima.getUnidade());
-            pstm.setFloat(3, materiaPrima.getSaldo());
-            pstm.setInt(4, materiaPrima.getId());
+            pstm.setDate(1, java.sql.Date.valueOf(compra.getData()));
+            pstm.setInt(2, compra.getMateriasPrima().getId());
+            pstm.setFloat(3, compra.getValor());
+            pstm.setFloat(4, compra.getQuantidade());
+            pstm.setInt(5, compra.getId());
             if (pstm.executeUpdate() > 0) {
-                return materiaPrima;
+                return compra;
             }
             return null;
 
@@ -122,15 +126,19 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
     @Override
     public Compra mount(ResultSet res) {
         try {
+            MateriaPrima materiaPrima = new MateriaPrima();
+            try {
+                materiaPrima.setId(res.getInt("materiaprima"));
+            } catch (SQLException ex) {
+                ex.getMessage();
+            }
             Compra compra = new Compra();
-            compra.setId(rs.getInt("id"));
-            compra.setData((LocalDate)rs.getDate("data"));
-            compra.setMateriasPrima(rs.getObject("materiaprima", MateriaPrima ));
-            compra.setQuantidade(rs.getFloat("quantidade"));
+            compra.setData(rs.getDate("data").toLocalDate());
             compra.setValor(rs.getFloat("valor"));
+            compra.setQuantidade(rs.getFloat("quantidade"));
             return compra;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            ex.getMessage();
             return null;
         }
     }
@@ -150,7 +158,7 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
     }
 
     @Override
-    public List<MateriaPrima> mountList(ResultSet res) {
+    public List<Compra> mountList(ResultSet res) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

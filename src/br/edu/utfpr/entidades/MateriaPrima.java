@@ -1,7 +1,7 @@
 package br.edu.utfpr.entidades;
 
-
 public class MateriaPrima {
+
     private Integer id;
     private String descricao;
     private String unidade;
@@ -48,6 +48,14 @@ public class MateriaPrima {
     public void setSaldo(Float saldo) {
         this.saldo = saldo;
     }
-    
-    
+
+    public MateriaPrima getMateriaPrimaByDescricao(String descricao) {
+        MateriaPrima mp = new MateriaPrima();
+        if (mp.toString() == descricao) {
+            return mp;
+        } else {
+            return null;
+        }
+    }
+
 }
