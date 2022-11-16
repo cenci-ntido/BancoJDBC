@@ -58,4 +58,9 @@ public class MateriaPrima {
         }
     }
 
+    @Override
+    public String toString() {
+        return descricao;
+    }
+
 }

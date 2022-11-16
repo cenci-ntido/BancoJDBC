@@ -13,16 +13,20 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
     private CompraListModel compraListModel;
     private List<Compra> listaCompras;
+    private Compra compra;
+
     private boolean edit = false;
 
     public FrmPesquisaCompra() {
         initComponents();
         super.setTitle("Tela de Compras");
         CompraDao compraDao = new CompraDao();
+        MateriaPrimaDao materiaPrimaDao = new MateriaPrimaDao();
         listaCompras = compraDao.findAll();
+        listaCompras.forEach(compra -> compra.setMateriasPrima(
+                materiaPrimaDao.findById(compra.getMateriasPrima().getId())));
         compraListModel = new CompraListModel(listaCompras);
         tbCompras.setModel(compraListModel);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -132,7 +136,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        FrmCompra frmCompra = new FrmCompra(null, true);
+        FrmCompra frmCompra = new FrmCompra(null, true, compraListModel);
         frmCompra.setLocationRelativeTo(null);
         frmCompra.setVisible(true);
     }//GEN-LAST:event_btnIncluirActionPerformed

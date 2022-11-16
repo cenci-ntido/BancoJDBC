@@ -6,63 +6,21 @@ import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.CompraListModel;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FrmCompra extends javax.swing.JDialog {
     
     private MateriaPrimaDao materiaPrimaDao;
+    private CompraListModel compraListModel;
     
-    public FrmCompra(java.awt.Frame parent, boolean modal) {
+    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel) {
         super(parent, modal);
         initComponents();
+        this.compraListModel = compraListModel;
         materiaPrimaDao = new MateriaPrimaDao();
-        materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds.getDescricao()));
+        materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         
-    }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMateriaPrima.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FrmCompra dialog = new FrmCompra(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
     /**
@@ -277,7 +235,7 @@ public class FrmCompra extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> cbMatPrima;
+    private javax.swing.JComboBox<MateriaPrima> cbMatPrima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -296,12 +254,12 @@ public class FrmCompra extends javax.swing.JDialog {
         compra.setData(LocalDate.parse(tfData.getText()));
         compra.setValor(Float.valueOf(tfValor.getText()));
         compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
-        compra.setMateriasPrima(mpDao.findByDescricao(cbMatPrima.getSelectedItem().toString()));
+//        compra.setMateriasPrima(mpDao.findByDescricao(cbMatPrima.getSelectedItem().toString()));
+        compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());
         return compra;
     }
     private int linhaSelecionada;
     private CompraDao compraDao;
-    private CompraListModel compraListModel;
     private boolean edit = false;
     
     private void save() {
