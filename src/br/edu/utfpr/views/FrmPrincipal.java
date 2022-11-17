@@ -26,7 +26,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -59,9 +58,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
-        jMenuItem5.setText("Receita");
-        jMenu1.add(jMenuItem5);
-
         mnSair.setText("Sair");
         mnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +79,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Produção");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -118,17 +119,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frmSobre.focus();
     }//GEN-LAST:event_menuSobreMouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        FrmPesquisaCompra frmPesquisaCompra = new FrmPesquisaCompra();
-        desktop.add(frmPesquisaCompra);
-        frmPesquisaCompra.setVisible(true);
-        try {
-            frmPesquisaCompra.setMaximum(true);
-        } catch (PropertyVetoException ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnSairActionPerformed
@@ -143,6 +133,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrmPesquisaCompra frmPesquisaCompra = new FrmPesquisaCompra();
+        desktop.add(frmPesquisaCompra);
+        frmPesquisaCompra.setVisible(true);
+        try {
+            frmPesquisaCompra.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        FrmPesquisaProducao frmPesquisaProducao = new FrmPesquisaProducao();
+        desktop.add(frmPesquisaProducao);
+        frmPesquisaProducao.setVisible(true);
+        try {
+            frmPesquisaProducao.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +203,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuSobre;
     private javax.swing.JMenuItem mnSair;

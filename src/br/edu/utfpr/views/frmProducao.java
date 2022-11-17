@@ -2,25 +2,29 @@ package br.edu.utfpr.views;
 
 import br.edu.utfpr.dao.ClassesDao.CompraDao;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
+import br.edu.utfpr.dao.ClassesDao.ProducaoDao;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import br.edu.utfpr.entidades.Producao;
 import br.edu.utfpr.models.CompraListModel;
+import br.edu.utfpr.models.ProducaoListModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FrmCompra extends javax.swing.JDialog {
-    
+public class FrmProducao extends javax.swing.JDialog {
+
     private MateriaPrimaDao materiaPrimaDao;
-    private CompraListModel compraListModel;
-    
-    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel) {
+    private ProducaoListModel producaoListModel;
+
+    public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel) {
         super(parent, modal);
         initComponents();
-        this.compraListModel = compraListModel;
+        this.producaoListModel = producaoListModel;
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         
+
     }
 
     /**
@@ -38,14 +42,12 @@ public class FrmCompra extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tfQuantidade = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         tfData = new javax.swing.JFormattedTextField();
-        jLabel9 = new javax.swing.JLabel();
-        tfValor = new javax.swing.JTextField();
         cbMatPrima = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        tfQuantidade = new javax.swing.JTextField();
 
         jLabel8.setText("Valor :");
 
@@ -58,8 +60,6 @@ public class FrmCompra extends javax.swing.JDialog {
         jLabel4.setText("Data :");
 
         tfCodigo.setEditable(false);
-
-        jLabel6.setText("Quantidade:");
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,13 +86,13 @@ public class FrmCompra extends javax.swing.JDialog {
             }
         });
 
-        jLabel9.setText("Valor :");
-
         cbMatPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMatPrimaActionPerformed(evt);
             }
         });
+
+        jLabel3.setText("Quantidade:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,40 +100,36 @@ public class FrmCompra extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cbMatPrima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 39, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 42, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel4, jLabel6});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tfCodigo, tfQuantidade});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel4});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnSalvar});
 
@@ -152,19 +148,15 @@ public class FrmCompra extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbMatPrima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(jLabel3)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,7 +167,7 @@ public class FrmCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        
+
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -238,43 +230,38 @@ public class FrmCompra extends javax.swing.JDialog {
     private javax.swing.JComboBox<MateriaPrima> cbMatPrima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JFormattedTextField tfData;
     private javax.swing.JTextField tfQuantidade;
-    private javax.swing.JTextField tfValor;
     private javax.swing.JTextField tfValor1;
     // End of variables declaration//GEN-END:variables
-    private Compra getCompra() {
-        MateriaPrimaDao mpDao = new MateriaPrimaDao();
-        Compra compra = new Compra();
-        compra.setData(LocalDate.parse(tfData.getText()));
-        compra.setValor(Float.valueOf(tfValor.getText()));
-        compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
-//        compra.setMateriasPrima(mpDao.findByDescricao(cbMatPrima.getSelectedItem().toString()));
-        compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());
-        return compra;
+    private Producao getProducao() {
+        Producao producao = new Producao();
+        producao.setData(LocalDate.parse(tfData.getText()));
+        producao.setQuantidade(Float.valueOf(tfQuantidade.getText()));
+        producao.setMateriaPrima((MateriaPrima) cbMatPrima.getSelectedItem());
+        return producao;
     }
     private int linhaSelecionada;
-    private CompraDao compraDao;
+    private ProducaoDao producaoDao;
     private boolean edit = false;
-    
+
     private void save() {
-        Compra compra = getCompra();
-        compraDao = new CompraDao();
+        Producao producao = getProducao();
+        producaoDao = new ProducaoDao();
         if (!edit) {
-            compraDao.insert(compra);
-            compraListModel.insertModel(compra);
-            MateriaPrima materiaPrima = compra.getMateriasPrima();
-            materiaPrima.setSaldo(materiaPrima.getSaldo()+ compra.getQuantidade());
+            producaoDao.insert(producao);
+            producaoListModel.insertModel(producao);
+            MateriaPrima materiaPrima = producao.getMateriaPrima();
+            materiaPrima.setSaldo(materiaPrima.getSaldo() - producao.getQuantidade());
             this.dispose();
         } else {
-            compra.setId(Integer.parseInt(tfCodigo.getText()));
-            compraDao.update(compra);
-            compraListModel.atualizarModel(linhaSelecionada, compra);
+            producao.setId(Integer.parseInt(tfCodigo.getText()));
+            producaoDao.update(producao);
+            producaoListModel.atualizarModel(linhaSelecionada, producao);
             this.dispose();
         }
     }
