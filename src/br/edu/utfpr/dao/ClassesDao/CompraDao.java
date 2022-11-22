@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 
 public class CompraDao extends AbstractDaoImpl<Compra> {
-    
+
     private PreparedStatement pstm; //insert, update e delete
     private ResultSet rs; //select
 
@@ -45,9 +45,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             super.closePreparedStatement(pstm);
             super.closeResultSet(rs);
         }
-        
+
     }
-    
+
     @Override
     public List<Compra> findAll() {
         try {
@@ -62,13 +62,14 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             super.closeResultSet(rs);
         }
     }
-    
+
     @Override
     public boolean delete(int id) {
         try {
-            pstm = getConn().prepareStatement("DELETE FROM materiaprima WHERE id = ?");
+            pstm = getConn().prepareStatement("DELETE FROM compra WHERE id = ?");
             pstm.setInt(1, id);
-            return pstm.executeUpdate() > 0;
+            pstm.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex.getMessage());
             return false;
@@ -76,7 +77,7 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             super.closePreparedStatement(pstm);
         }
     }
-    
+
     @Override
     public Compra findById(int id) {
         try {
@@ -95,14 +96,14 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             super.closeResultSet(rs);
         }
     }
-    
+
     @Override
     public Compra update(Compra compra) {
         try {
             pstm = getConn().prepareStatement("UPDATE compra "
                     + "SET data=?, materiaprima=?, valor=?, quantidade=?"
                     + "WHERE id=?");
-            
+
             pstm.setDate(1, java.sql.Date.valueOf(compra.getData()));
             pstm.setInt(2, compra.getMateriasPrima().getId());
             pstm.setFloat(3, compra.getValor());
@@ -113,8 +114,6 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             }
             return null;
 
-            // Se a atualização acontecer corretamente, o valor é a quantidade de linhas afetada na execuação,
-            //senão retorna 0 indicando que a  atualização não afetou nenhuma linha.
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             return null;
@@ -123,15 +122,16 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             super.closeResultSet(rs);
         }
     }
-    
+
     @Override
     public Compra mount(ResultSet res) {
         try {
             MateriaPrima materiaPrima = new MateriaPrima();
             materiaPrima.setId(res.getInt("materiaprima"));
             Compra compra = new Compra();
-            compra.setMateriasPrima(materiaPrima);
+            compra.setId(res.getInt("id"));
             compra.setData(rs.getDate("data").toLocalDate());
+            compra.setMateriasPrima(materiaPrima);
             compra.setValor(rs.getFloat("valor"));
             compra.setQuantidade(rs.getFloat("quantidade"));
             return compra;
@@ -140,7 +140,7 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return null;
         }
     }
-    
+
 //    private List<Compra> mountList() throws SQLException {
 //        List<Compra> listaMp = new ArrayList();
 //        try {
@@ -154,7 +154,6 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
 //        }
 //        return listaMp;
 //    }
-    
     public List<Compra> mountList() {
         List<Compra> listaCompra = new ArrayList();
         try {
@@ -172,5 +171,5 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
     public List<Compra> mountList(ResultSet res) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

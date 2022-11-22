@@ -7,6 +7,7 @@ package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -19,6 +20,8 @@ public class CompraListModel extends AbstractTableModel {
     private List<Compra> listaCompra;
 
     private String[] colunas = new String[]{"Código", "Data", "Matéria Prima", "Valor", "Quantidade"};
+//    private DateTimeFormatter dtf = new DateTimeFormatter();
+//    private DecimalFormat df = new DecimalFormat();
 
     public CompraListModel(List<Compra> listaCompra) {
         this.listaCompra = listaCompra;

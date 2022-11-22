@@ -60,6 +60,11 @@ public class Compra {
     public void setQuantidade(Float quantidade) {
         this.quantidade = quantidade;
     }
+
+    @Override
+    public String toString() {
+        return "Compra{" + "id=" + id + ", data=" + data + ", valor=" + valor + ", materiaPrima=" + materiaPrima + ", quantidade=" + quantidade + '}';
+    }
    
    
 }

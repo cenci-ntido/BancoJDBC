@@ -10,17 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrmCompra extends javax.swing.JDialog {
-    
+
     private MateriaPrimaDao materiaPrimaDao;
     private CompraListModel compraListModel;
-    
+
     public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel) {
         super(parent, modal);
         initComponents();
         this.compraListModel = compraListModel;
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
-        
+
+    }
+
+    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel, Compra compra) {
+        super(parent, modal);
+        initComponents();
+        this.compraListModel = compraListModel;
+        materiaPrimaDao = new MateriaPrimaDao();
+        materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
+        tfCodigo.setText(compra.getId().toString());
+        tfData.setText(compra.getData().toString());
+        tfValor.setText(compra.getValor().toString());
+        tfQuantidade.setText(compra.getQuantidade().toString());
+        cbMatPrima.getModel().setSelectedItem(compra.getMateriasPrima());
     }
 
     /**
@@ -175,7 +188,7 @@ public class FrmCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        
+
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -261,7 +274,7 @@ public class FrmCompra extends javax.swing.JDialog {
     private int linhaSelecionada;
     private CompraDao compraDao;
     private boolean edit = false;
-    
+
     private void save() {
         Compra compra = getCompra();
         compraDao = new CompraDao();
@@ -269,7 +282,7 @@ public class FrmCompra extends javax.swing.JDialog {
             compraDao.insert(compra);
             compraListModel.insertModel(compra);
             MateriaPrima materiaPrima = compra.getMateriasPrima();
-            materiaPrima.setSaldo(materiaPrima.getSaldo()+ compra.getQuantidade());
+            materiaPrima.setSaldo(materiaPrima.getSaldo() + compra.getQuantidade());
             this.dispose();
         } else {
             compra.setId(Integer.parseInt(tfCodigo.getText()));

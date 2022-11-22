@@ -41,17 +41,16 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
         tbCompras = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnIncluir = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnImprimir = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("..:: Pesquisa de Compras ::..");
+        setTitle("Pesquisa de Compras ");
 
-        jLabel1.setText("Descrição:");
+        jLabel1.setText("Filtar por data:");
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +67,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
@@ -98,7 +97,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        btnIncluir.setText("Novo");
+        btnIncluir.setText("Inlcuir");
         btnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIncluirActionPerformed(evt);
@@ -106,29 +105,21 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btnIncluir);
 
-        btnAlterar.setText("Editar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
+                btEditarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAlterar);
+        jPanel2.add(btEditar);
 
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btExcluirActionPerformed(evt);
             }
         });
-        jPanel2.add(btnExcluir);
-
-        btnImprimir.setText("Imprimir");
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnImprimir);
+        jPanel2.add(btExcluir);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
@@ -141,17 +132,13 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
         frmCompra.setVisible(true);
     }//GEN-LAST:event_btnIncluirActionPerformed
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // editar();
-    }//GEN-LAST:event_btnAlterarActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_btEditarActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        //  excluir();
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnImprimirActionPerformed
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        excluir();
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
@@ -159,9 +146,8 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btnIncluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
@@ -172,35 +158,37 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
 
-    /*private void excluir() {
-        int linhaSelecionada = tblCarros.getSelectedRow(); //pega a linha selecionada na JTable
-        if (linhaSelecionada >= 0) { // se uma linha foi selecionada
-            int opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir o carro selecionado?",
+    private void excluir() {
+        int linhaSelecionada = tbCompras.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir a compra selecionada?",
                     "Exclusão",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opcao == JOptionPane.YES_OPTION) {
-                int idCarro = (int) tblCarros.getValueAt(linhaSelecionada, 0);
-                CarroDao carroDao = new CarroDao();
-                if (carroDao.delete(idCarro)) {
-                    JOptionPane.showMessageDialog(null, "Carro excluído com sucesso!");
-                    carroListModel.removeModel(linhaSelecionada);
+                int idCompra = (int) tbCompras.getValueAt(linhaSelecionada, 0);
+                CompraDao compraDao = new CompraDao();
+                if (compraDao.delete(idCompra)) {
+                    JOptionPane.showMessageDialog(null, "Compra excluída com sucesso!");
+                    compraListModel.removeModel(linhaSelecionada);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM REGISTRO!");
+            JOptionPane.showMessageDialog(null, "Selecione a compra que deseja excluir!");
         }
     }
 
     private void editar() {
-        edit = true;
-        int linhaSelecionada = tblCarros.getSelectedRow();
+        int linhaSelecionada = tbCompras.getSelectedRow();
         if (linhaSelecionada >= 0) {
-            int idCarro = (int) tblCarros.getValueAt(linhaSelecionada, 0);
-            System.out.println(idCarro);
-            FrmCarro frmCarro = new FrmCarro(carroListModel, linhaSelecionada, idCarro, edit);
-            frmCarro.setVisible(true);
+            int idCompra = (int) tbCompras.getValueAt(linhaSelecionada, 0);
+            CompraDao compraDao = new CompraDao();
+            Compra compra = compraDao.findById(idCompra);
+            FrmCompra frmCompra = new FrmCompra(null, edit, compraListModel, compra);
+            frmCompra.setVisible(true);
+
         } else {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM REGISTRO!");
+            JOptionPane.showMessageDialog(null, "Selecione a compra que deseja editar!");
         }
-    }*/
+    }
+
 }
