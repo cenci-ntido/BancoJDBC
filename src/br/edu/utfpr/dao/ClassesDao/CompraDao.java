@@ -114,11 +114,10 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return null;
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível editar o cadastro: " + ex.getMessage());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
-            super.closeResultSet(rs);
         }
     }
 

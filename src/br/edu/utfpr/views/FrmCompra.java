@@ -10,11 +10,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComponent;
 
 public class FrmCompra extends javax.swing.JDialog {
 
     private MateriaPrimaDao materiaPrimaDao;
     private CompraListModel compraListModel;
+    private int linhaSelecionada;
+    private CompraDao compraDao;
+    private boolean edit = false;
 
     public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel) {
         super(parent, modal);
@@ -22,20 +26,24 @@ public class FrmCompra extends javax.swing.JDialog {
         this.compraListModel = compraListModel;
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
+        tfData.getToolTipText();
 
     }
 
-    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel, Compra compra) {
+    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel, Compra compra, int linhaSelecionda) {
         super(parent, modal);
         initComponents();
+        edit = true;
         this.compraListModel = compraListModel;
+        this.linhaSelecionada = linhaSelecionada;
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         tfCodigo.setText(compra.getId().toString());
-        tfData.setText(compra.getData().toString());
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        tfData.setText(compra.getData().format(formatters));
         tfValor.setText(compra.getValor().toString());
         tfQuantidade.setText(compra.getQuantidade().toString());
-        cbMatPrima.getModel().setSelectedItem(compra.getMateriasPrima());
+        cbMatPrima.getModel().setSelectedItem(compraListModel.getValueAt(linhaSelecionda, 2));
     }
 
     /**
@@ -289,9 +297,6 @@ public class FrmCompra extends javax.swing.JDialog {
         compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());
         return compra;
     }
-    private int linhaSelecionada;
-    private CompraDao compraDao;
-    private boolean edit = false;
 
     private void save() {
         Compra compra = getCompra();

@@ -178,12 +178,13 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
     }
 
     private void editar() {
+        edit = true;
         int linhaSelecionada = tbCompras.getSelectedRow();
         if (linhaSelecionada >= 0) {
             int idCompra = (int) tbCompras.getValueAt(linhaSelecionada, 0);
             CompraDao compraDao = new CompraDao();
             Compra compra = compraDao.findById(idCompra);
-            FrmCompra frmCompra = new FrmCompra(null, edit, compraListModel, compra);
+            FrmCompra frmCompra = new FrmCompra(null, edit, compraListModel, compra, linhaSelecionada);
             frmCompra.setVisible(true);
 
         } else {

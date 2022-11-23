@@ -52,7 +52,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("..:: Pesquisa de Produções ::..");
+        setTitle("Pesquisa de Produções");
 
         jLabel1.setText("Data:");
 
@@ -139,9 +139,9 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        FrmProducao frmProducao = new FrmProducao(null, true, producaoListModel);
-        frmProducao.setLocationRelativeTo(null);
-        frmProducao.setVisible(true);
+        FrmProducao1 frmProducao1 = new FrmProducao1(null, true, producaoListModel);
+        frmProducao1.setLocationRelativeTo(null);
+        frmProducao1.setVisible(true);
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
