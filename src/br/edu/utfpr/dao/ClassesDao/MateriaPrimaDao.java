@@ -12,8 +12,8 @@ import java.sql.Statement;
 
 public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
 
-    private PreparedStatement pstm; //insert, update e delete
-    private ResultSet rs; //select
+    private PreparedStatement pstm;
+    private ResultSet rs;
 
     @Override
     public MateriaPrima insert(MateriaPrima materiaPrima) {
@@ -21,7 +21,6 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
             pstm = getConn().prepareStatement("INSERT INTO materiaprima\n"
                     + "(descricao, unidade, saldo)\n"
                     + "VALUES(?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
-//Statement.RETURN_GENERATED_KEYS permite recuperar as chaves geradas automaticamente por meio do método getGeneratedKeys
             pstm.setString(1, materiaPrima.getDescricao());
             pstm.setString(2, materiaPrima.getUnidade());
             pstm.setFloat(3, materiaPrima.getSaldo());
@@ -89,7 +88,7 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
             super.closeResultSet(rs);
         }
     }
-    
+
     public MateriaPrima findByDescricao(String descricao) {
         try {
             pstm = getConn().prepareStatement("SELECT  * from materiaprima WHERE descricao = '?'");
@@ -107,7 +106,6 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
             super.closeResultSet(rs);
         }
     }
-
 
     @Override
     public MateriaPrima update(MateriaPrima materiaPrima) {
@@ -130,6 +128,24 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
+    }
+
+    public void atualizarSaldo(MateriaPrima materiaPrima, Float saldo) {
+        try {
+            pstm = getConn().prepareStatement("UPDATE materiaprima "
+                    + "SET saldo=?"
+                    + "WHERE id=?");
+            pstm.setFloat(1, saldo);
+            pstm.setInt(2, materiaPrima.getId());
+            pstm.executeUpdate();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+
         } finally {
             super.closePreparedStatement(pstm);
             super.closeResultSet(rs);

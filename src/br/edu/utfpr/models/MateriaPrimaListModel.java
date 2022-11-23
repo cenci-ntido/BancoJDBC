@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.MateriaPrima;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Andreia
- */
+
 public class MateriaPrimaListModel extends AbstractTableModel {
 
     private List<MateriaPrima> listaMateriaPrima;
 
     private String[] colunas = new String[]{"Código", "Descrição", "Unidade", "Saldo"};
+    private DecimalFormat df = new DecimalFormat("#,###.00");
 
     public MateriaPrimaListModel(List<MateriaPrima> listaMateriaPrima) {
         this.listaMateriaPrima = listaMateriaPrima;
@@ -44,7 +39,11 @@ public class MateriaPrimaListModel extends AbstractTableModel {
             case 2:
                 return materiaPrima.getUnidade();
             case 3:
-                return materiaPrima.getSaldo();
+                if(materiaPrima.getSaldo() == 0){
+                    return 0.000;
+                }else{
+                    return df.format(materiaPrima.getSaldo());
+                }
             default:
                 break;
         }

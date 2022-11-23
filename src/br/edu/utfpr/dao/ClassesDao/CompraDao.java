@@ -17,8 +17,8 @@ import java.util.logging.Level;
 
 public class CompraDao extends AbstractDaoImpl<Compra> {
 
-    private PreparedStatement pstm; //insert, update e delete
-    private ResultSet rs; //select
+    private PreparedStatement pstm;
+    private ResultSet rs;
 
     @Override
     public Compra insert(Compra compra) {
@@ -26,7 +26,6 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             pstm = getConn().prepareStatement("INSERT INTO compra\n"
                     + "(\"data\", valor, materiaprima, quantidade)\n"
                     + "VALUES(?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
-//Statement.RETURN_GENERATED_KEYS permite recuperar as chaves geradas automaticamente por meio do método getGeneratedKeys
             pstm.setDate(1, java.sql.Date.valueOf(compra.getData()));
             pstm.setFloat(2, compra.getValor());
             pstm.setInt(3, compra.getMateriasPrima().getId());
@@ -39,7 +38,7 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             }
             return null;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao inserir Compra: " + ex.getMessage());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -141,19 +140,6 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         }
     }
 
-//    private List<Compra> mountList() throws SQLException {
-//        List<Compra> listaMp = new ArrayList();
-//        try {
-//            while (rs.next()) {
-//                Compra compra = mount(rs);
-//                listaMp.add(compra);
-//            }
-//            
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//        }
-//        return listaMp;
-//    }
     public List<Compra> mountList() {
         List<Compra> listaCompra = new ArrayList();
         try {

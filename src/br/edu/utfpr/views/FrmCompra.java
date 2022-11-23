@@ -5,7 +5,9 @@ import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.CompraListModel;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,13 +91,18 @@ public class FrmCompra extends javax.swing.JDialog {
         });
 
         try {
-            tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+            tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         tfData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDataActionPerformed(evt);
+            }
+        });
+        tfData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfDataKeyPressed(evt);
             }
         });
 
@@ -115,26 +122,29 @@ public class FrmCompra extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbMatPrima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(45, 45, 45)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbMatPrima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(tfQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                    .addGap(122, 122, 122))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 0, Short.MAX_VALUE))))
                         .addGap(0, 39, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -145,8 +155,6 @@ public class FrmCompra extends javax.swing.JDialog {
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel4, jLabel6});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tfCodigo, tfQuantidade});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnSalvar});
 
@@ -199,6 +207,15 @@ public class FrmCompra extends javax.swing.JDialog {
     private void cbMatPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatPrimaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMatPrimaActionPerformed
+
+    private void tfDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDataKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            LocalDate dataAtual = LocalDate.now();
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String text = dataAtual.format(formatters);
+            tfData.setText(text);
+        }
+    }//GEN-LAST:event_tfDataKeyPressed
 
     /**
      * @param args the command line arguments
@@ -264,10 +281,11 @@ public class FrmCompra extends javax.swing.JDialog {
     private Compra getCompra() {
         MateriaPrimaDao mpDao = new MateriaPrimaDao();
         Compra compra = new Compra();
-        compra.setData(LocalDate.parse(tfData.getText()));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataCompra = LocalDate.parse(tfData.getText(), dtf);
+        compra.setData(dataCompra);
         compra.setValor(Float.valueOf(tfValor.getText()));
         compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
-//        compra.setMateriasPrima(mpDao.findByDescricao(cbMatPrima.getSelectedItem().toString()));
         compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());
         return compra;
     }
@@ -281,8 +299,6 @@ public class FrmCompra extends javax.swing.JDialog {
         if (!edit) {
             compraDao.insert(compra);
             compraListModel.insertModel(compra);
-            MateriaPrima materiaPrima = compra.getMateriasPrima();
-            materiaPrima.setSaldo(materiaPrima.getSaldo() + compra.getQuantidade());
             this.dispose();
         } else {
             compra.setId(Integer.parseInt(tfCodigo.getText()));
@@ -291,4 +307,13 @@ public class FrmCompra extends javax.swing.JDialog {
             this.dispose();
         }
     }
+
+    private void atualizarSaldoMp(Compra compra) {
+        MateriaPrima mp = compra.getMateriasPrima();
+        Float saldoAtual = mp.getSaldo() + compra.getQuantidade();
+        mp.setSaldo(saldoAtual);
+        System.out.println(saldoAtual);
+        materiaPrimaDao.atualizarSaldo(mp, saldoAtual);
+    }
+
 }

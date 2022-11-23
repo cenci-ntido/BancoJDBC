@@ -10,9 +10,14 @@ import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.MateriaPrimaListModel;
 
 public class FrmMateriaPrima extends javax.swing.JDialog {
+    private int linhaSelecionada;
+    private MateriaPrimaDao materiaPrimaDao;
+    private MateriaPrimaListModel materiaPrimaListModel;
+    private boolean edit = false;
 
-    public FrmMateriaPrima(java.awt.Frame parent, boolean modal) {
+    public FrmMateriaPrima(java.awt.Frame parent, boolean modal,  MateriaPrimaListModel materiaPrimaListModel) {
         super(parent, modal);
+        this.materiaPrimaListModel = materiaPrimaListModel;
         initComponents();
     }
 
@@ -87,11 +92,12 @@ public class FrmMateriaPrima extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-                    .addComponent(tfDescricao)
-                    .addComponent(tfUnidade)
-                    .addComponent(tfSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfSaldo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                        .addComponent(tfUnidade, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(55, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,7 +145,6 @@ public class FrmMateriaPrima extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         save();
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void tfSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSaldoActionPerformed
@@ -153,7 +158,6 @@ public class FrmMateriaPrima extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -175,10 +179,6 @@ public class FrmMateriaPrima extends javax.swing.JDialog {
         materiaPrima.setSaldo(Float.valueOf(tfSaldo.getText()));
         return materiaPrima;
     }
-    private int linhaSelecionada;
-    private MateriaPrimaDao materiaPrimaDao;
-    private MateriaPrimaListModel materiaPrimaListModel;
-    private boolean edit = false;
 
     private void save() {
         MateriaPrima materiaPrima = getMateriaPrima();

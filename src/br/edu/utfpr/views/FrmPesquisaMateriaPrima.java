@@ -18,7 +18,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
         MateriaPrimaDao materiaPrimaDao = new MateriaPrimaDao();
         listaMateriaPrima = materiaPrimaDao.findAll();
         materiaPrimaListModel = new MateriaPrimaListModel(listaMateriaPrima);
-        tblCarros.setModel(materiaPrimaListModel);
+        tbMp.setModel(materiaPrimaListModel);
 
     }
 
@@ -31,7 +31,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
         txtModelo = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCarros = new javax.swing.JTable();
+        tbMp = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnIncluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -42,9 +42,9 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("..:: Pesquisa de Matérias Primas ::..");
+        setTitle("Pesquisa de Matérias Primas");
 
-        jLabel1.setText("Descrição:");
+        jLabel1.setText("Filtrar por descrição:");
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -61,7 +61,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
@@ -79,7 +79,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        tblCarros.setModel(new javax.swing.table.DefaultTableModel(
+        tbMp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -87,7 +87,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblCarros);
+        jScrollPane1.setViewportView(tbMp);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -129,7 +129,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        FrmMateriaPrima frmMateriaPrima = new FrmMateriaPrima(null, true);
+        FrmMateriaPrima frmMateriaPrima = new FrmMateriaPrima(null, true, materiaPrimaListModel);
         frmMateriaPrima.setLocationRelativeTo(null);
         frmMateriaPrima.setVisible(true);
     }//GEN-LAST:event_btnIncluirActionPerformed
@@ -139,7 +139,7 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        //  excluir();
+          excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -161,39 +161,39 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCarros;
+    private javax.swing.JTable tbMp;
     private javax.swing.JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
 
-    /*private void excluir() {
-        int linhaSelecionada = tblCarros.getSelectedRow(); //pega a linha selecionada na JTable
+    private void excluir() {
+        int linhaSelecionada = tbMp.getSelectedRow(); //pega a linha selecionada na JTable
         if (linhaSelecionada >= 0) { // se uma linha foi selecionada
-            int opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir o carro selecionado?",
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir a MP selecionada?",
                     "Exclusão",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opcao == JOptionPane.YES_OPTION) {
-                int idCarro = (int) tblCarros.getValueAt(linhaSelecionada, 0);
-                CarroDao carroDao = new CarroDao();
-                if (carroDao.delete(idCarro)) {
-                    JOptionPane.showMessageDialog(null, "Carro excluído com sucesso!");
-                    carroListModel.removeModel(linhaSelecionada);
+                int idMp = (int) tbMp.getValueAt(linhaSelecionada, 0);
+                MateriaPrimaDao materiaPrimaDao = new MateriaPrimaDao();
+                if (materiaPrimaDao.delete(idMp)) {
+                    JOptionPane.showMessageDialog(null, "MP excluído com sucesso!");
+                    materiaPrimaListModel.removeModel(linhaSelecionada);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM REGISTRO!");
+            JOptionPane.showMessageDialog(null, "Selecione uma MP para excluir!");
         }
     }
-
-    private void editar() {
-        edit = true;
-        int linhaSelecionada = tblCarros.getSelectedRow();
-        if (linhaSelecionada >= 0) {
-            int idCarro = (int) tblCarros.getValueAt(linhaSelecionada, 0);
-            System.out.println(idCarro);
-            FrmCarro frmCarro = new FrmCarro(carroListModel, linhaSelecionada, idCarro, edit);
-            frmCarro.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM REGISTRO!");
-        }
-    }*/
+//
+//    private void editar() {
+//        edit = true;
+//        int linhaSelecionada = tblCarros.getSelectedRow();
+//        if (linhaSelecionada >= 0) {
+//            int idCarro = (int) tblCarros.getValueAt(linhaSelecionada, 0);
+//            System.out.println(idCarro);
+//            FrmCarro frmCarro = new FrmCarro(carroListModel, linhaSelecionada, idCarro, edit);
+//            frmCarro.setVisible(true);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "SELECIONE UM REGISTRO!");
+//        }
+//    }
 }

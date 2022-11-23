@@ -33,11 +33,13 @@
                   <Component id="jLabel5" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="tfCodigo" alignment="0" pref="287" max="32767" attributes="0"/>
-                  <Component id="tfDescricao" alignment="0" max="32767" attributes="0"/>
-                  <Component id="tfUnidade" alignment="0" max="32767" attributes="0"/>
-                  <Component id="tfSaldo" alignment="0" pref="287" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="tfDescricao" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
+                  <Component id="tfCodigo" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="tfSaldo" alignment="0" pref="101" max="32767" attributes="0"/>
+                      <Component id="tfUnidade" alignment="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="55" max="32767" attributes="0"/>
           </Group>
