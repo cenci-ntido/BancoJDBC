@@ -5,7 +5,6 @@ import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.entidades.Producao;
 import formataData.FormataData;
 import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 

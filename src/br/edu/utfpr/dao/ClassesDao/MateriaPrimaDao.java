@@ -56,8 +56,6 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         }
     }
 
-
-
     @Override
     public boolean delete(int id) {
         try {
@@ -130,24 +128,6 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             return null;
-        } finally {
-            super.closePreparedStatement(pstm);
-            super.closeResultSet(rs);
-        }
-    }
-
-    public void atualizarSaldo(MateriaPrima materiaPrima, Float saldo) {
-        try {
-            pstm = getConn().prepareStatement("UPDATE materiaprima "
-                    + "SET saldo=?"
-                    + "WHERE id=?");
-            pstm.setFloat(1, saldo);
-            pstm.setInt(2, materiaPrima.getId());
-            pstm.executeUpdate();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-
         } finally {
             super.closePreparedStatement(pstm);
             super.closeResultSet(rs);

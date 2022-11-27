@@ -8,7 +8,6 @@ import br.edu.utfpr.models.CompraListModel;
 import formataData.FormataData;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -39,8 +38,7 @@ public class FrmCompra extends javax.swing.JDialog {
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         tfCodigo.setText(compra.getId().toString());
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        tfData.setText(compra.getData().format(formatters));
+        tfData.setText(FormataData.formataDataString(compra.getData()));
         tfValor.setText(compra.getValor().toString());
         tfQuantidade.setText(compra.getQuantidade().toString());
         cbMatPrima.getModel().setSelectedItem(compraListModel.getValueAt(linhaSelecionda, 2));
@@ -306,14 +304,6 @@ public class FrmCompra extends javax.swing.JDialog {
             compraListModel.atualizarModel(linhaSelecionada, compra);
             this.dispose();
         }
-    }
-
-    private void atualizarSaldoMp(Compra compra) {
-        MateriaPrima mp = compra.getMateriasPrima();
-        Float saldoAtual = mp.getSaldo() + compra.getQuantidade();
-        mp.setSaldo(saldoAtual);
-        System.out.println(saldoAtual);
-        materiaPrimaDao.atualizarSaldo(mp, saldoAtual);
     }
 
 }

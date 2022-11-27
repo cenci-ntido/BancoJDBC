@@ -3,8 +3,8 @@ package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import formataData.FormataData;
 import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,7 +14,6 @@ public class CompraListModel extends AbstractTableModel {
     private List<Compra> listaCompra;
 
     private String[] colunas = new String[]{"Código", "Data", "Matéria Prima", "Valor", "Quantidade"};
-    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
     public CompraListModel(List<Compra> listaCompra) {
@@ -38,7 +37,7 @@ public class CompraListModel extends AbstractTableModel {
             case 0:
                 return compra.getId();
             case 1:
-                return dtf.format(compra.getData());
+                return FormataData.formataDataString(compra.getData());
             case 2:
                 return compra.getMateriasPrima().getDescricao();
             case 3:

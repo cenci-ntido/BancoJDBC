@@ -24,7 +24,7 @@ public class FrmProducao extends javax.swing.JDialog {
     private ProducaoListModel producaoListModel;
     private ProducaoDao producaoDao;
     private ProdMpListModel prodMpListModel;
-    private MateriaPrima materiaPrima;
+    private MateriaPrimaDao materiaPrimaDao;
     private List<MateriaPrima> listaMp;
     private boolean edit = false;
     private int linhaSelecionada;
@@ -32,27 +32,23 @@ public class FrmProducao extends javax.swing.JDialog {
     public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel) {
         super(parent, modal);
         initComponents();
+        materiaPrimaDao = new MateriaPrimaDao();
+        materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         this.producaoListModel = producaoListModel;
     }
-    
-    public FrmProducao(FrmPesquisaProducao frmPesquisaProducao, boolean modal, Producao producao, ProducaoListModel producaoListModel, int linhaSelecionada) {
+
+    public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel, Producao producao, int linhaSelecionda) {
+        super(parent, modal);
         initComponents();
         edit = true;
         this.producaoListModel = producaoListModel;
         this.linhaSelecionada = linhaSelecionada;
-        tfCodigo.setText(String.valueOf(producao.getId()));
-//        tfDescricao.setText(producao.getDescricao());
-//        clienteDao = new ClienteDao();
-//        clienteDao.findAll().forEach(cliente -> cbCliente.addItem(cliente)); //carrega todos os clientes
-//        carroDao = new CarroDao();
-//        carroDao.findAll().forEach(carro -> cbCarro.addItem(carro));
-//        cbCliente.getModel().setSelectedItem(locacaoListModel.getValueAt(linhaSelecionada, 1));
-//        cbCarro.getModel().setSelectedItem(locacaoListModel.getValueAt(linhaSelecionada, 2));
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        tfDataLocacao.setText(dtf.format(loc.getDataLocacao()));
-//        tfDataDevolucao.setText(dtf.format(loc.getDataDevolucao()));
-//        tfValor.setText(String.valueOf(loc.getValor()));
-//        ckAtivo.setSelected(loc.getAtivo());
+        materiaPrimaDao = new MateriaPrimaDao();
+        materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
+        tfCodigo.setText(producao.getId().toString());
+        tfData.setText(FormataData.formataDataString(producao.getData()));
+        tfQuantidade.setText(producao.getQuantidade().toString());
+        cbMatPrima.getModel().setSelectedItem(producaoListModel.getValueAt(linhaSelecionda, 2));
     }
 
     /**
@@ -71,13 +67,13 @@ public class FrmProducao extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         tfData = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cbMatPrima = new javax.swing.JComboBox<>();
+        tfQuantidade = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbProducao = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         tbCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,6 +105,10 @@ public class FrmProducao extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setText("Matéria Prima");
+
+        jLabel4.setText("Quantidade");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,12 +117,16 @@ public class FrmProducao extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(248, Short.MAX_VALUE))
+                    .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMatPrima, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,64 +139,49 @@ public class FrmProducao extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbMatPrima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/save.png"))); // NOI18N
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btSalvar);
 
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/cancel.png"))); // NOI18N
         btCancelar.setText("Cancelar");
-        jPanel2.add(btCancelar);
-
-        tbProducao.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tbProducao);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/document-add.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btCancelarActionPerformed(evt);
             }
         });
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/delete.png"))); // NOI18N
+        jPanel2.add(btCancelar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -208,27 +197,54 @@ public class FrmProducao extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tfDataKeyPressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        FrmEscolherMp frmEscolherMp = new FrmEscolherMp(null, true, prodMpListModel);
-        frmEscolherMp.setLocationRelativeTo(null);
-        frmEscolherMp.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        save();
+    }//GEN-LAST:event_btSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<MateriaPrima> cbMatPrima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbCompras;
-    private javax.swing.JTable tbProducao;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JFormattedTextField tfData;
+    private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
+       private Producao getProducao() {
+        MateriaPrimaDao mpDao = new MateriaPrimaDao();
+        Producao producao = new Producao();
+        producao.setData(FormataData.formataDataAmbos(tfData.getText()));
+        producao.setQuantidade(Float.valueOf(tfQuantidade.getText()));
+//        producao.setMateriaPrima((MateriaPrima) cbMatPrima.getModel().getSelectedItem());
+        MateriaPrima materiaPrima = materiaPrimaDao.findByDescricao(cbMatPrima.getModel().getSelectedItem().toString());
+        producao.setMateriaPrima(materiaPrima);
+        return producao;
+    }
+
+    private void save() {
+        Producao producao = getProducao();
+        producaoDao = new ProducaoDao();
+        if (!edit) {
+            producaoDao.insert(producao);
+            producaoListModel.insertModel(producao);
+            this.dispose();
+        } else {
+            producao.setId(Integer.parseInt(tfCodigo.getText()));
+            producaoDao.update(producao);
+            producaoListModel.atualizarModel(linhaSelecionada, producao);
+            this.dispose();
+        }
+    }
 }

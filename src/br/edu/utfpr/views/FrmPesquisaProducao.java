@@ -201,12 +201,12 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
 //        edit=true;
         int linhaSelecionada = tbProducoes.getSelectedRow();
         if (linhaSelecionada >= 0) {
-            int idProd = (int) tbProducoes.getValueAt(linhaSelecionada, 0);
+            int idProd = (int) tbProducoes.getValueAt(linhaSelecionada, 2);
             ProducaoDao producaoDao = new ProducaoDao();
             Producao prod = producaoDao.findById(idProd);
-            FrmProducao frmProducao = new FrmProducao(null, true, prod, producaoListModel, linhaSelecionada);
+            FrmProducao frmProducao = new FrmProducao(null, true, producaoListModel, prod, linhaSelecionada);
             frmProducao.setVisible(true);
-
+            frmProducao.setLocationRelativeTo(null);
         }
     }
 }
