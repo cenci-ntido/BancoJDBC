@@ -135,11 +135,11 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // editar();
+        editar();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-          excluir();
+        excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -183,17 +183,19 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma MP para excluir!");
         }
     }
-//
-//    private void editar() {
-//        edit = true;
-//        int linhaSelecionada = tblCarros.getSelectedRow();
-//        if (linhaSelecionada >= 0) {
-//            int idCarro = (int) tblCarros.getValueAt(linhaSelecionada, 0);
-//            System.out.println(idCarro);
-//            FrmCarro frmCarro = new FrmCarro(carroListModel, linhaSelecionada, idCarro, edit);
-//            frmCarro.setVisible(true);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "SELECIONE UM REGISTRO!");
-//        }
-//    }
+
+    private void editar() {
+        edit = true;
+        int linhaSelecionada = tbMp.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            int idMp = (int) tbMp.getValueAt(linhaSelecionada, 0);
+            MateriaPrimaDao materiaPrimaDao = new MateriaPrimaDao();
+            MateriaPrima mp = materiaPrimaDao.findById(idMp);
+            FrmMateriaPrima frmMateriaPrima = new FrmMateriaPrima(null, edit, materiaPrimaListModel, mp, linhaSelecionada);
+            frmMateriaPrima.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione a compra que deseja editar!");
+        }
+    }
 }

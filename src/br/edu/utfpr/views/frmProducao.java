@@ -4,8 +4,10 @@
  */
 package br.edu.utfpr.views;
 
+import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.dao.ClassesDao.ProducaoDao;
 import br.edu.utfpr.entidades.MateriaPrima;
+import br.edu.utfpr.entidades.Producao;
 import br.edu.utfpr.models.ProdMpListModel;
 import br.edu.utfpr.models.ProducaoListModel;
 import formataData.FormataData;
@@ -24,12 +26,33 @@ public class FrmProducao extends javax.swing.JDialog {
     private ProdMpListModel prodMpListModel;
     private MateriaPrima materiaPrima;
     private List<MateriaPrima> listaMp;
+    private boolean edit = false;
+    private int linhaSelecionada;
 
     public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel) {
         super(parent, modal);
         initComponents();
         this.producaoListModel = producaoListModel;
-
+    }
+    
+    public FrmProducao(FrmPesquisaProducao frmPesquisaProducao, boolean modal, Producao producao, ProducaoListModel producaoListModel, int linhaSelecionada) {
+        initComponents();
+        edit = true;
+        this.producaoListModel = producaoListModel;
+        this.linhaSelecionada = linhaSelecionada;
+        tfCodigo.setText(String.valueOf(producao.getId()));
+//        tfDescricao.setText(producao.getDescricao());
+//        clienteDao = new ClienteDao();
+//        clienteDao.findAll().forEach(cliente -> cbCliente.addItem(cliente)); //carrega todos os clientes
+//        carroDao = new CarroDao();
+//        carroDao.findAll().forEach(carro -> cbCarro.addItem(carro));
+//        cbCliente.getModel().setSelectedItem(locacaoListModel.getValueAt(linhaSelecionada, 1));
+//        cbCarro.getModel().setSelectedItem(locacaoListModel.getValueAt(linhaSelecionada, 2));
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        tfDataLocacao.setText(dtf.format(loc.getDataLocacao()));
+//        tfDataDevolucao.setText(dtf.format(loc.getDataDevolucao()));
+//        tfValor.setText(String.valueOf(loc.getValor()));
+//        ckAtivo.setSelected(loc.getAtivo());
     }
 
     /**
@@ -66,9 +89,13 @@ public class FrmProducao extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tbCompras);
 
+        setTitle("Produção");
+
         jLabel1.setText("Código:");
 
         jLabel2.setText("Data:");
+
+        tfCodigo.setEnabled(false);
 
         try {
             tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -130,6 +157,11 @@ public class FrmProducao extends javax.swing.JDialog {
         jScrollPane2.setViewportView(tbProducao);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/document-add.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/delete.png"))); // NOI18N
 
@@ -175,6 +207,12 @@ public class FrmProducao extends javax.swing.JDialog {
             tfData.setText(FormataData.formataDataString(dataAtual));
         }
     }//GEN-LAST:event_tfDataKeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        FrmEscolherMp frmEscolherMp = new FrmEscolherMp(null, true, prodMpListModel);
+        frmEscolherMp.setLocationRelativeTo(null);
+        frmEscolherMp.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
