@@ -131,6 +131,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             MateriaPrima materiaPrima = new MateriaPrima();
             materiaPrima.setId(res.getInt("materiaprima"));
             Producao producao = new Producao();
+            producao.setId(rs.getInt("id"));
             producao.setMateriaPrima(materiaPrima);
             producao.setData(rs.getDate("data").toLocalDate());
             producao.setQuantidade(rs.getFloat("quantidade"));

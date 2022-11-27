@@ -1,25 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.entidades.Producao;
+import formataData.FormataData;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Andreia
- */
 public class ProducaoListModel extends AbstractTableModel {
 
     private List<Producao> listaProducao;
 
-    private String[] colunas = new String[]{"Código", "Data"};
+    private String[] colunas = new String[]{"Código", "Data", "Matéria Prima", "Quantidade"};
+    private DecimalFormat df = new DecimalFormat("#,###.00");
 
     public ProducaoListModel(List<Producao> listaProducao) {
         this.listaProducao = listaProducao;
@@ -42,7 +37,15 @@ public class ProducaoListModel extends AbstractTableModel {
             case 0:
                 return producao.getId();
             case 1:
-                return producao.getData();
+                return FormataData.formataDataString(producao.getData());
+            case 2:
+                return producao.getMateriaPrima().getDescricao();
+            case 3:
+                if (producao.getQuantidade() < 1) {
+                    return producao.getQuantidade();
+                } else {
+                    return df.format(producao.getQuantidade());
+                }
             default:
                 break;
         }

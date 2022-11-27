@@ -9,6 +9,7 @@ public class Producao {
     private LocalDate data;
     private MateriaPrima materiaPrima;
     private Float quantidade;
+    
 
     public Producao() {
     }

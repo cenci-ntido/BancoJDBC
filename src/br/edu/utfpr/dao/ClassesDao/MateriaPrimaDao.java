@@ -56,6 +56,8 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         }
     }
 
+
+
     @Override
     public boolean delete(int id) {
         try {
