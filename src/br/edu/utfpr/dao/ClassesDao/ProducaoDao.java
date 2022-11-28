@@ -98,31 +98,26 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
 
     @Override
     public Producao update(Producao producao) {
-//        try {
-//            pstm = getConn().prepareStatement("UPDATE compra "
-//                    + "SET data=?, materiaprima=?, valor=?, quantidade=?"
-//                    + "WHERE id=?");
-//            
-//            pstm.setDate(1, java.sql.Date.valueOf(compra.getData()));
-//            pstm.setInt(2, compra.getMateriasPrima().getId());
-//            pstm.setFloat(3, compra.getValor());
-//            pstm.setFloat(4, compra.getQuantidade());
-//            pstm.setInt(5, compra.getId());
-//            if (pstm.executeUpdate() > 0) {
-//                return compra;
-//            }
-//            return null;
-//
-//            // Se a atualização acontecer corretamente, o valor é a quantidade de linhas afetada na execuação,
-//            //senão retorna 0 indicando que a  atualização não afetou nenhuma linha.
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//            return null;
-//        } finally {
-//            super.closePreparedStatement(pstm);
-//            super.closeResultSet(rs);
-//        }
-        return null;
+        try {
+            pstm = getConn().prepareStatement("UPDATE producao "
+                    + "SET data=?, materiaprima=?, quantidade=?"
+                    + "WHERE id=?");
+
+            pstm.setDate(1, java.sql.Date.valueOf(producao.getData()));
+            pstm.setInt(2, producao.getMateriaPrima().getId());
+            pstm.setFloat(3, producao.getQuantidade());
+            pstm.setInt(4, producao.getId());
+            if (pstm.executeUpdate() > 0) {
+                return producao;
+            }
+            return null;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível editar o cadastro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+        }
     }
 
     @Override

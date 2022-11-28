@@ -3,7 +3,6 @@ package br.edu.utfpr.dao.ClassesDao;
 import br.edu.utfpr.dao.AbstractDaoImpl;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
-import java.lang.System.Logger;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,8 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.Date;
+
 import java.util.logging.Level;
 
 public class CompraDao extends AbstractDaoImpl<Compra> {
@@ -78,21 +76,19 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
     }
 
     @Override
-    public Compra findById(int id) {
+    public Compra findById(int codigo) {
+        // Locacao locacao = new Locacao();
         try {
-            pstm = getConn().prepareStatement("SELECT  * from compra WHERE id = ?");
-            pstm.setInt(1, id);
+            pstm = getConn().prepareStatement("SELECT * from compra WHERE id=?");
+            pstm.setInt(1, codigo);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 return mount(rs);
             }
             return null;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao retornar o objeto " + ex.getMessage());
             return null;
-        } finally {
-            super.closePreparedStatement(pstm);
-            super.closeResultSet(rs);
         }
     }
 
@@ -126,15 +122,15 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         try {
             MateriaPrima materiaPrima = new MateriaPrima();
             materiaPrima.setId(res.getInt("materiaprima"));
+
             Compra compra = new Compra();
             compra.setId(res.getInt("id"));
-            compra.setData(rs.getDate("data").toLocalDate());
             compra.setMateriasPrima(materiaPrima);
+            compra.setData(rs.getDate("data").toLocalDate());
             compra.setValor(rs.getFloat("valor"));
             compra.setQuantidade(rs.getFloat("quantidade"));
             return compra;
         } catch (SQLException ex) {
-            ex.getMessage();
             return null;
         }
     }
@@ -151,6 +147,5 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         }
         return listaCompra;
     }
-
 
 }

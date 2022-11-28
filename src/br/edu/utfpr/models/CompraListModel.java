@@ -39,7 +39,7 @@ public class CompraListModel extends AbstractTableModel {
             case 1:
                 return FormataData.localDateToString(compra.getData());
             case 2:
-                return compra.getMateriasPrima().getDescricao();
+                return compra.getMateriasPrima();
             case 3:
                 return df.format(compra.getValor());
             case 4:

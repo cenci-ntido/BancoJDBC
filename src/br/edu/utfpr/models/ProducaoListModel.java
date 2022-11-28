@@ -10,7 +10,7 @@ public class ProducaoListModel extends AbstractTableModel {
 
     private List<Producao> listaProducao;
 
-    private String[] colunas = new String[]{"Código", "Data", "Cod. MP", "Matéria Prima", "Quantidade"};
+    private String[] colunas = new String[]{"Código", "Data", "Matéria Prima", "Quantidade"};
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
     public ProducaoListModel(List<Producao> listaProducao) {
@@ -36,10 +36,8 @@ public class ProducaoListModel extends AbstractTableModel {
             case 1:
                 return FormataData.localDateToString(producao.getData());
             case 2:
-                return producao.getMateriaPrima().getId();
+                return producao.getMateriaPrima();
             case 3:
-                return producao.getMateriaPrima().getDescricao();
-            case 4:
                 if (producao.getQuantidade() < 1) {
                     return producao.getQuantidade();
                 } else {

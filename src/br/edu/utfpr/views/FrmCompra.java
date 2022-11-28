@@ -9,7 +9,6 @@ import br.edu.utfpr.models.CompraListModel;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 
-
 public class FrmCompra extends javax.swing.JDialog {
 
     private MateriaPrimaDao materiaPrimaDao;
@@ -17,6 +16,7 @@ public class FrmCompra extends javax.swing.JDialog {
     private int linhaSelecionada;
     private CompraDao compraDao;
     private boolean edit = false;
+    private Compra compra;
 
     public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel) {
         super(parent, modal);
@@ -28,18 +28,22 @@ public class FrmCompra extends javax.swing.JDialog {
     }
 
     public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel, Compra compra, int linhaSelecionda) {
-        super(parent, modal);
         initComponents();
         edit = true;
         this.compraListModel = compraListModel;
         this.linhaSelecionada = linhaSelecionada;
-        materiaPrimaDao = new MateriaPrimaDao();
-        materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
-        tfCodigo.setText(compra.getId().toString());
+        tfCodigo.setText(String.valueOf(compra.getId()));
         tfData.setText(FormataData.localDateToString(compra.getData()));
-        tfValor.setText(compra.getValor().toString());
         tfQuantidade.setText(compra.getQuantidade().toString());
-        cbMatPrima.getModel().setSelectedItem(compraListModel.getValueAt(linhaSelecionda, 2));
+        tfValor.setText(compra.getValor().toString());
+
+        materiaPrimaDao = new MateriaPrimaDao();
+        materiaPrimaDao.findAll().forEach(mp -> cbMatPrima.addItem(mp)); //carrega todos os clientes
+
+        //SEM ACESSAR O BANCO NÃO DEU CERTO PRA MIM, PODE TESTAR
+//        cbMatPrima.getModel().setSelectedItem(compraListModel.getValueAt(linhaSelecionada, 2)); 
+        cbMatPrima.getModel().setSelectedItem(materiaPrimaDao.findById(compra.getMateriasPrima().getId())); //retorna o cliente selecionado na JTable
+
     }
 
     /**
@@ -219,50 +223,6 @@ public class FrmCompra extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tfDataKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(FrmLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(FrmLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(FrmLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(FrmLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                FrmLocacao dialog = new FrmLocacao(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -281,29 +241,33 @@ public class FrmCompra extends javax.swing.JDialog {
     private javax.swing.JTextField tfValor;
     private javax.swing.JTextField tfValor1;
     // End of variables declaration//GEN-END:variables
-    private Compra getCompra() {
-        MateriaPrimaDao mpDao = new MateriaPrimaDao();
-        Compra compra = new Compra();
-        compra.setData(FormataData.stringToLocalDate(tfData.getText()));
-        compra.setValor(Float.valueOf(tfValor.getText()));
-        compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
-        compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());
+     private Compra getCompra() {
+        if (compra == null) {
+            compra = new Compra();
+            compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());
+            compra.setData(FormataData.stringToLocalDate(tfData.getText()));
+            compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
+            compra.setValor(Float.valueOf(tfValor.getText()));
+        }
         return compra;
     }
 
     private void save() {
         Compra compra = getCompra();
         compraDao = new CompraDao();
-        if (!edit) {
+        if (!edit) {//inserir
             compraDao.insert(compra);
             compraListModel.insertModel(compra);
-            this.dispose();
-        } else {
+            dispose();
+
+        } else { //editar
             compra.setId(Integer.parseInt(tfCodigo.getText()));
             compraDao.update(compra);
             compraListModel.atualizarModel(linhaSelecionada, compra);
             this.dispose();
+
         }
+
     }
 
 }

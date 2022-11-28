@@ -190,10 +190,10 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     }
 
     private void filtro() {
-        List<MateriaPrima> listaFiltrada = listaMateriaPrima.stream().map(mp
-                -> mp.getDescricao()== tfFiltro.getText());
+//        List<MateriaPrima> listaFiltrada = listaMateriaPrima.stream().map(mp
+//                -> mp.getDescricao()== tfFiltro.getText());
        
 
-        System.out.println(listaFiltrada.toString());
+//        System.out.println(listaFiltrada.toString());
     }
 }

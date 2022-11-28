@@ -38,7 +38,7 @@ public class FrmProducao extends javax.swing.JDialog {
         tfCodigo.setText(producao.getId().toString());
         tfData.setText(FormataData.localDateToString(producao.getData()));
         tfQuantidade.setText(producao.getQuantidade().toString());
-        cbMatPrima.getModel().setSelectedItem(producaoListModel.getValueAt(linhaSelecionda, 2));
+        cbMatPrima.getModel().setSelectedItem(materiaPrimaDao.findById(producao.getMateriaPrima().getId())); 
     }
 
     /**
