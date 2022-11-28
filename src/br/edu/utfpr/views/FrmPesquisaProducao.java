@@ -1,13 +1,8 @@
 package br.edu.utfpr.views;
 
-import br.edu.utfpr.dao.ClassesDao.CompraDao;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.dao.ClassesDao.ProducaoDao;
-import br.edu.utfpr.entidades.Compra;
-import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.entidades.Producao;
-import br.edu.utfpr.models.CompraListModel;
-import br.edu.utfpr.models.MateriaPrimaListModel;
 import br.edu.utfpr.models.ProducaoListModel;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -46,7 +41,6 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
         btnIncluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        btnImprimir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -54,9 +48,9 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Pesquisa de Produções");
 
-        jLabel1.setText("Data:");
+        jLabel1.setText("Filtrar por data:");
 
-        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/arquivo-de-documento.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -71,7 +65,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
@@ -89,6 +83,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
+        tbProducoes.setForeground(new java.awt.Color(51, 51, 51));
         tbProducoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -101,6 +96,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/document-add.png"))); // NOI18N
         btnIncluir.setText("Novo");
         btnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +105,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btnIncluir);
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/editar.png"))); // NOI18N
         btnAlterar.setText("Editar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +114,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btnAlterar);
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/lixo.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,14 +122,6 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnExcluir);
-
-        btnImprimir.setText("Imprimir");
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnImprimir);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
@@ -152,10 +142,6 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
         excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnImprimirActionPerformed
-
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -164,7 +150,6 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnIncluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;

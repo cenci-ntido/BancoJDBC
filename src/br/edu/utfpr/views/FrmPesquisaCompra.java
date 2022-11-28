@@ -4,9 +4,11 @@ import br.edu.utfpr.dao.ClassesDao.CompraDao;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import br.edu.utfpr.formataData.FormataData;
 import br.edu.utfpr.models.CompraListModel;
 import br.edu.utfpr.models.MateriaPrimaListModel;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
@@ -35,7 +37,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtModelo = new javax.swing.JTextField();
+        tfFiltro = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCompras = new javax.swing.JTable();
@@ -52,7 +54,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Filtar por data:");
 
-        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/arquivo-de-documento.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -67,7 +69,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(tfFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
@@ -78,7 +80,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -97,6 +99,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/document-add.png"))); // NOI18N
         btnIncluir.setText("Inlcuir");
         btnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +108,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btnIncluir);
 
+        btEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/editar.png"))); // NOI18N
         btEditar.setText("Editar");
         btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +117,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
         });
         jPanel2.add(btEditar);
 
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/lixo.png"))); // NOI18N
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +146,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
+        filtro();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
 
@@ -155,7 +160,7 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbCompras;
-    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 
     private void excluir() {
@@ -190,6 +195,14 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione a compra que deseja editar!");
         }
+    }
+
+    private void filtro() {
+        List<Compra> listaCompraFiltrada = listaCompras.stream().filter(compra
+                -> compra.getData() == FormataData.stringToLocalDate(tfFiltro.getText()))
+                .collect(Collectors.toList());
+
+        System.out.println(listaCompraFiltrada.toString());
     }
 
 }
