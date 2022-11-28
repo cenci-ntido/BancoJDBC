@@ -79,6 +79,7 @@ public class FrmCompra extends javax.swing.JDialog {
         jLabel4.setText("Data :");
 
         tfCodigo.setEditable(false);
+        tfCodigo.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel6.setText("Quantidade:");
 
@@ -87,6 +88,7 @@ public class FrmCompra extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfData.setToolTipText("Pressione espaço!");
         tfData.setPreferredSize(new java.awt.Dimension(35, 24));
         tfData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

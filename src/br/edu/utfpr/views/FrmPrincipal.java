@@ -1,5 +1,7 @@
 package br.edu.utfpr.views;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
 import javax.swing.JFrame;
 
@@ -50,6 +52,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Cadastros");
         jMenu1.add(jSeparator1);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/fornecem.png"))); // NOI18N
         jMenuItem4.setText("Matéria Prima");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,6 +61,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        mnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/sair.png"))); // NOI18N
         mnSair.setText("Sair");
         mnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +74,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Processos");
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/carrinho-de-compras.png"))); // NOI18N
         jMenuItem2.setText("Compra");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +83,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/producao.png"))); // NOI18N
         jMenuItem3.setText("Produção");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +126,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSobreMouseClicked
 
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
-        // TODO add your handling code here:
+        super.dispose();
     }//GEN-LAST:event_mnSairActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed

@@ -81,6 +81,7 @@ public class FrmProducao extends javax.swing.JDialog {
 
         jLabel2.setText("Data:");
 
+        tfCodigo.setForeground(new java.awt.Color(153, 153, 153));
         tfCodigo.setEnabled(false);
 
         try {
@@ -88,6 +89,7 @@ public class FrmProducao extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfData.setToolTipText("Pressione espaço!");
         tfData.setPreferredSize(new java.awt.Dimension(20, 24));
         tfData.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
