@@ -17,6 +17,7 @@ public class FrmProducao extends javax.swing.JDialog {
     private MateriaPrimaDao materiaPrimaDao;
     private boolean edit = false;
     private int linhaSelecionada;
+    private Producao producao;
 
     public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel) {
         super(parent, modal);
@@ -211,14 +212,13 @@ public class FrmProducao extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField tfData;
     private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
-       private Producao getProducao() {
-        MateriaPrimaDao mpDao = new MateriaPrimaDao();
-        Producao producao = new Producao();
-        producao.setData(FormataData.stringToLocalDate(tfData.getText()));
-        producao.setQuantidade(Float.valueOf(tfQuantidade.getText()));
-//        producao.setMateriaPrima((MateriaPrima) cbMatPrima.getModel().getSelectedItem());
-        MateriaPrima materiaPrima = materiaPrimaDao.findByDescricao(cbMatPrima.getModel().getSelectedItem().toString());
-        producao.setMateriaPrima(materiaPrima);
+     private Producao getProducao() {
+        if (producao == null) {
+            producao = new Producao();
+            producao.setMateriaPrima((MateriaPrima) cbMatPrima.getSelectedItem());
+            producao.setData(FormataData.stringToLocalDate(tfData.getText()));
+            producao.setQuantidade(Float.valueOf(tfQuantidade.getText()));
+        }
         return producao;
     }
 
