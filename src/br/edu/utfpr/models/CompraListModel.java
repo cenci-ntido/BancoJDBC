@@ -3,7 +3,7 @@ package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
-import formataData.FormataData;
+import br.edu.utfpr.formataData.FormataData;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -37,7 +37,7 @@ public class CompraListModel extends AbstractTableModel {
             case 0:
                 return compra.getId();
             case 1:
-                return FormataData.formataDataString(compra.getData());
+                return FormataData.localDateToString(compra.getData());
             case 2:
                 return compra.getMateriasPrima().getDescricao();
             case 3:

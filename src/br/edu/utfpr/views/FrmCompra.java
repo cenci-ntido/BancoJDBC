@@ -4,13 +4,11 @@ import br.edu.utfpr.dao.ClassesDao.CompraDao;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import br.edu.utfpr.formataData.FormataData;
 import br.edu.utfpr.models.CompraListModel;
-import formataData.FormataData;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JComponent;
+
 
 public class FrmCompra extends javax.swing.JDialog {
 
@@ -38,7 +36,7 @@ public class FrmCompra extends javax.swing.JDialog {
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         tfCodigo.setText(compra.getId().toString());
-        tfData.setText(FormataData.formataDataString(compra.getData()));
+        tfData.setText(FormataData.localDateToString(compra.getData()));
         tfValor.setText(compra.getValor().toString());
         tfQuantidade.setText(compra.getQuantidade().toString());
         cbMatPrima.getModel().setSelectedItem(compraListModel.getValueAt(linhaSelecionda, 2));
@@ -215,7 +213,7 @@ public class FrmCompra extends javax.swing.JDialog {
     private void tfDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDataKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             LocalDate dataAtual = LocalDate.now();
-            tfData.setText(FormataData.formataDataString(dataAtual));
+            tfData.setText(FormataData.localDateToString(dataAtual));
         }
     }//GEN-LAST:event_tfDataKeyPressed
 
@@ -284,7 +282,7 @@ public class FrmCompra extends javax.swing.JDialog {
     private Compra getCompra() {
         MateriaPrimaDao mpDao = new MateriaPrimaDao();
         Compra compra = new Compra();
-        compra.setData(FormataData.formataDataAmbos(tfData.getText()));
+        compra.setData(FormataData.stringToLocalDate(tfData.getText()));
         compra.setValor(Float.valueOf(tfValor.getText()));
         compra.setQuantidade(Float.valueOf(tfQuantidade.getText()));
         compra.setMateriasPrima((MateriaPrima) cbMatPrima.getSelectedItem());

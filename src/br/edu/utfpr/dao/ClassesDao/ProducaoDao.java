@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.logging.Level;
 
 public class ProducaoDao extends AbstractDaoImpl<Producao> {
-    
+
     private PreparedStatement pstm; //insert, update e delete
     private ResultSet rs; //select
 
@@ -45,9 +45,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             super.closePreparedStatement(pstm);
             super.closeResultSet(rs);
         }
-        
+
     }
-    
+
     @Override
     public List<Producao> findAll() {
         try {
@@ -62,7 +62,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             super.closeResultSet(rs);
         }
     }
-    
+
     @Override
     public boolean delete(int id) {
         try {
@@ -76,7 +76,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             super.closePreparedStatement(pstm);
         }
     }
-    
+
     @Override
     public Producao findById(int id) {
         try {
@@ -95,7 +95,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             super.closeResultSet(rs);
         }
     }
-    
+
     @Override
     public Producao update(Producao producao) {
 //        try {
@@ -124,7 +124,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
 //        }
         return null;
     }
-    
+
     @Override
     public Producao mount(ResultSet res) {
         try {
@@ -141,21 +141,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             return null;
         }
     }
-    
-//    private List<Compra> mountList() throws SQLException {
-//        List<Compra> listaMp = new ArrayList();
-//        try {
-//            while (rs.next()) {
-//                Compra compra = mount(rs);
-//                listaMp.add(compra);
-//            }
-//            
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-//        }
-//        return listaMp;
-//    }
-    
+
     public List<Producao> mountList() {
         List<Producao> listaProducao = new ArrayList();
         try {
@@ -169,9 +155,4 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         return listaProducao;
     }
 
-    @Override
-    public List<Producao> mountList(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

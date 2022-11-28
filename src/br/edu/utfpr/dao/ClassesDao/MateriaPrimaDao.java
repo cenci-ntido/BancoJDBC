@@ -163,8 +163,4 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         return listaMp;
     }
 
-    @Override
-    public List<MateriaPrima> mountList(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

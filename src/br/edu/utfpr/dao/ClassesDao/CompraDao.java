@@ -152,9 +152,5 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
         return listaCompra;
     }
 
-    @Override
-    public List<Compra> mountList(ResultSet res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

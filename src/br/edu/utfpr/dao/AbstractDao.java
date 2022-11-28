@@ -20,5 +20,4 @@ public interface AbstractDao<T> {
 
     public T mount(ResultSet res);
 
-    public List<T> mountList(ResultSet res);
 }

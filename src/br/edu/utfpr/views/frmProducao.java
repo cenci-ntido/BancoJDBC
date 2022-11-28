@@ -1,31 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package br.edu.utfpr.views;
 
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.dao.ClassesDao.ProducaoDao;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.entidades.Producao;
-import br.edu.utfpr.models.ProdMpListModel;
+import br.edu.utfpr.formataData.FormataData;
 import br.edu.utfpr.models.ProducaoListModel;
-import formataData.FormataData;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- *
- * @author thiag
- */
 public class FrmProducao extends javax.swing.JDialog {
 
     private ProducaoListModel producaoListModel;
     private ProducaoDao producaoDao;
-    private ProdMpListModel prodMpListModel;
     private MateriaPrimaDao materiaPrimaDao;
-    private List<MateriaPrima> listaMp;
     private boolean edit = false;
     private int linhaSelecionada;
 
@@ -46,7 +35,7 @@ public class FrmProducao extends javax.swing.JDialog {
         materiaPrimaDao = new MateriaPrimaDao();
         materiaPrimaDao.findAll().forEach(fds -> cbMatPrima.addItem(fds));
         tfCodigo.setText(producao.getId().toString());
-        tfData.setText(FormataData.formataDataString(producao.getData()));
+        tfData.setText(FormataData.localDateToString(producao.getData()));
         tfQuantidade.setText(producao.getQuantidade().toString());
         cbMatPrima.getModel().setSelectedItem(producaoListModel.getValueAt(linhaSelecionda, 2));
     }
@@ -193,7 +182,7 @@ public class FrmProducao extends javax.swing.JDialog {
     private void tfDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDataKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             LocalDate dataAtual = LocalDate.now();
-            tfData.setText(FormataData.formataDataString(dataAtual));
+            tfData.setText(FormataData.localDateToString(dataAtual));
         }
     }//GEN-LAST:event_tfDataKeyPressed
 
@@ -225,7 +214,7 @@ public class FrmProducao extends javax.swing.JDialog {
        private Producao getProducao() {
         MateriaPrimaDao mpDao = new MateriaPrimaDao();
         Producao producao = new Producao();
-        producao.setData(FormataData.formataDataAmbos(tfData.getText()));
+        producao.setData(FormataData.stringToLocalDate(tfData.getText()));
         producao.setQuantidade(Float.valueOf(tfQuantidade.getText()));
 //        producao.setMateriaPrima((MateriaPrima) cbMatPrima.getModel().getSelectedItem());
         MateriaPrima materiaPrima = materiaPrimaDao.findByDescricao(cbMatPrima.getModel().getSelectedItem().toString());

@@ -1,15 +1,13 @@
-
 package br.edu.utfpr.entidades;
 
 import java.time.LocalDate;
 
-
 public class Producao {
+
     private Integer id;
     private LocalDate data;
     private MateriaPrima materiaPrima;
     private Float quantidade;
-    
 
     public Producao() {
     }
@@ -53,6 +51,9 @@ public class Producao {
         this.quantidade = quantidade;
     }
 
-   
-   
+    @Override
+    public String toString() {
+        return "Producao{" + "id=" + id + ", data=" + data + ", materiaPrima=" + materiaPrima + ", quantidade=" + quantidade + '}';
+    }
+
 }
