@@ -9,6 +9,7 @@ import br.edu.utfpr.models.ProducaoListModel;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class FrmProducao extends javax.swing.JDialog {
 
@@ -38,7 +39,7 @@ public class FrmProducao extends javax.swing.JDialog {
         tfCodigo.setText(producao.getId().toString());
         tfData.setText(FormataData.localDateToString(producao.getData()));
         tfQuantidade.setText(producao.getQuantidade().toString());
-        cbMatPrima.getModel().setSelectedItem(materiaPrimaDao.findById(producao.getMateriaPrima().getId())); 
+        cbMatPrima.getModel().setSelectedItem(materiaPrimaDao.findById(producao.getMateriaPrima().getId()));
     }
 
     /**
@@ -194,6 +195,7 @@ public class FrmProducao extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
         save();
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -238,4 +240,5 @@ public class FrmProducao extends javax.swing.JDialog {
             this.dispose();
         }
     }
+
 }
