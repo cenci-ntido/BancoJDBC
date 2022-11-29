@@ -27,7 +27,7 @@ public class FrmCompra extends javax.swing.JDialog {
 
     }
 
-    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel, Compra compra, int linhaSelecionda) {
+    public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel, Compra compra, int linhaSelecionada) {
         initComponents();
         edit = true;
         this.compraListModel = compraListModel;
@@ -253,17 +253,20 @@ public class FrmCompra extends javax.swing.JDialog {
     }
 
     private void save() {
-        Compra compra = getCompra();
+        compra = getCompra();
         compraDao = new CompraDao();
         if (!edit) {//inserir
             compraDao.insert(compra);
             compraListModel.insertModel(compra);
+            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "COMPRA");
+            materiaPrimaDao.update(compra.getMateriasPrima());
             dispose();
-
         } else { //editar
             compra.setId(Integer.parseInt(tfCodigo.getText()));
             compraDao.update(compra);
             compraListModel.atualizarModel(linhaSelecionada, compra);
+            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "PRODUCAO");//Ajuda da prof
+            materiaPrimaDao.update(compra.getMateriasPrima());
             this.dispose();
 
         }

@@ -28,7 +28,7 @@ public class FrmProducao extends javax.swing.JDialog {
         this.producaoListModel = producaoListModel;
     }
 
-    public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel, Producao producao, int linhaSelecionda) {
+    public FrmProducao(java.awt.Frame parent, boolean modal, ProducaoListModel producaoListModel, Producao producao, int linhaSelecionada) {
         super(parent, modal);
         initComponents();
         edit = true;
@@ -232,11 +232,16 @@ public class FrmProducao extends javax.swing.JDialog {
         if (!edit) {
             producaoDao.insert(producao);
             producaoListModel.insertModel(producao);
+            producaoListModel.insertModel(producao);
+            producao.getMateriaPrima().atualizarSaldo(producao.getQuantidade(), "PRODUCAO");
+            materiaPrimaDao.update(producao.getMateriaPrima());
             this.dispose();
         } else {
             producao.setId(Integer.parseInt(tfCodigo.getText()));
             producaoDao.update(producao);
             producaoListModel.atualizarModel(linhaSelecionada, producao);
+            producao.getMateriaPrima().atualizarSaldo(producao.getQuantidade(), "PRODUCAO");//Ajuda prof
+            materiaPrimaDao.update(producao.getMateriaPrima());
             this.dispose();
         }
     }

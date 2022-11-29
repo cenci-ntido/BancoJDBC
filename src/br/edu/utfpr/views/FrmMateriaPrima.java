@@ -22,7 +22,7 @@ public class FrmMateriaPrima extends javax.swing.JDialog {
         initComponents();
     }
 
-    public FrmMateriaPrima(java.awt.Frame parent, boolean modal, MateriaPrimaListModel materiaPrimaListModel, MateriaPrima mp, int linhaSelecionda) {
+    public FrmMateriaPrima(java.awt.Frame parent, boolean modal, MateriaPrimaListModel materiaPrimaListModel, MateriaPrima mp, int linhaSelecionada) {
         super(parent, modal);
         initComponents();
         edit = true;

@@ -163,4 +163,25 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         return listaMp;
     }
 
+    public MateriaPrima updateSaldo(MateriaPrima materiaPrima) {
+        try {
+            pstm = getConn().prepareStatement("UPDATE materiaprima "
+                    + "SET saldo=?"
+                    + "WHERE id=?");
+
+            pstm.setFloat(1, materiaPrima.getSaldo());
+            pstm.setInt(2, materiaPrima.getId());
+            if (pstm.executeUpdate() > 0) {
+                return materiaPrima;
+            }
+            return null;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
+    }
+
 }
