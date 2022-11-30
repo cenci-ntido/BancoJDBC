@@ -107,6 +107,22 @@ public class MateriaPrimaDao extends AbstractDaoImpl<MateriaPrima> {
         }
     }
 
+    public List<MateriaPrima> filtraDescricao(String descricao) {
+        try {
+            pstm = getConn().prepareStatement("SELECT  * from materiaprima WHERE descricao like '%" + descricao + "%'");
+            rs = pstm.executeQuery();
+
+            return mountList();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
+    }
+
     @Override
     public MateriaPrima update(MateriaPrima materiaPrima) {
         try {

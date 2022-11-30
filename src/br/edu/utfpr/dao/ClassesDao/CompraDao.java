@@ -3,6 +3,7 @@ package br.edu.utfpr.dao.ClassesDao;
 import br.edu.utfpr.dao.AbstractDaoImpl;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
+import br.edu.utfpr.formataData.FormataData;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import java.util.logging.Level;
 
@@ -114,6 +116,27 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return null;
         } finally {
             super.closePreparedStatement(pstm);
+        }
+    }
+
+    public List<Compra> filtrarData(String data) {
+        try {
+            if (data == null || data.equals((String) "")) {
+                pstm = getConn().prepareStatement("SELECT  * from compra");
+                rs = pstm.executeQuery();
+            } else {
+                pstm = getConn().prepareStatement("SELECT  * from compra WHERE \"data\" = '" + data + "'");
+                rs = pstm.executeQuery();
+            }
+
+            return mountList();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
         }
     }
 

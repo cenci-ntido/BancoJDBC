@@ -4,7 +4,6 @@ import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.MateriaPrimaListModel;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
@@ -191,10 +190,9 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
     }
 
     private void filtro() {
-//        List<MateriaPrima> listaFiltrada = listaMateriaPrima.stream().map(mp
-//                -> mp.getDescricao().equals((String) tfFiltro.getText())).collect(Collectors.toList());
-//        materiaPrimaListModel = new MateriaPrimaListModel(listaMateriaPrima);
-//        tbMp.setModel(materiaPrimaListModel);
-
+        MateriaPrimaDao materiaPrimaDao = new MateriaPrimaDao();
+        List<MateriaPrima> listaFiltrada = materiaPrimaDao.filtraDescricao(tfFiltro.getText());
+        materiaPrimaListModel = new MateriaPrimaListModel(listaFiltrada);
+        tbMp.setModel(materiaPrimaListModel);
     }
 }

@@ -37,8 +37,8 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfFiltro = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
+        tfFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCompras = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -68,9 +68,9 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
         );
@@ -80,8 +80,8 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnPesquisar)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -196,11 +196,10 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
     }
 
     private void filtro() {
-        List<Compra> listaCompraFiltrada = listaCompras.stream().filter(compra
-                -> compra.getData() == FormataData.stringToLocalDate(tfFiltro.getText()))
-                .collect(Collectors.toList());
-
-        System.out.println(listaCompraFiltrada.toString());
+        CompraDao compraDao = new CompraDao();
+        List<Compra> listaFiltrada = compraDao.filtrarData(tfFiltro.getText());
+        compraListModel = new CompraListModel(listaFiltrada);
+        tbCompras.setModel(compraListModel);
     }
 
 }
