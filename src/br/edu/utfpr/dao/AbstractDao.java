@@ -15,7 +15,7 @@ public interface AbstractDao<T> {
     public boolean delete(int codigo);
 
     public T findById(int codigo);
-
+    
     public List<T> findAll();
 
     public T mount(ResultSet res);

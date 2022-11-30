@@ -1,4 +1,3 @@
-
 package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.Compra;
@@ -8,8 +7,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-
-public class CompraListModel extends AbstractTableModel {
+public class CompraListModel extends AbstractListModelImpl<Compra> {
 
     private List<Compra> listaCompra;
 
@@ -55,17 +53,20 @@ public class CompraListModel extends AbstractTableModel {
         return colunas[column];
     }
 
+    @Override
     public void insertModel(Compra compra) {
         listaCompra.add(compra);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
     }
 
+    @Override
     public void removeModel(int indexRow) {
         listaCompra.remove(indexRow);
         fireTableRowsDeleted(indexRow, indexRow);
     }
 
+    @Override
     public void atualizarModel(int indiceLinha, Compra compra) {
         listaCompra.set(indiceLinha, compra);
         fireTableRowsUpdated(indiceLinha, indiceLinha);
