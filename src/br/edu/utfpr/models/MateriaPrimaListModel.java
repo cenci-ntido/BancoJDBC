@@ -1,4 +1,3 @@
-
 package br.edu.utfpr.models;
 
 import br.edu.utfpr.entidades.MateriaPrima;
@@ -6,8 +5,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-
-public class MateriaPrimaListModel extends AbstractTableModel {
+public class MateriaPrimaListModel extends AbstractListModelImpl<MateriaPrima> {
 
     private List<MateriaPrima> listaMateriaPrima;
 
@@ -16,16 +14,6 @@ public class MateriaPrimaListModel extends AbstractTableModel {
 
     public MateriaPrimaListModel(List<MateriaPrima> listaMateriaPrima) {
         this.listaMateriaPrima = listaMateriaPrima;
-    }
-
-    @Override
-    public int getRowCount() {
-        return listaMateriaPrima.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return colunas.length;
     }
 
     @Override
@@ -39,36 +27,15 @@ public class MateriaPrimaListModel extends AbstractTableModel {
             case 2:
                 return materiaPrima.getUnidade();
             case 3:
-                if(materiaPrima.getSaldo() == 0){
+                if (materiaPrima.getSaldo() == 0) {
                     return 0.000;
-                }else{
+                } else {
                     return df.format(materiaPrima.getSaldo());
                 }
             default:
                 break;
         }
         return materiaPrima;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return colunas[column];
-    }
-
-    public void insertModel(MateriaPrima materiaPrima) {
-        listaMateriaPrima.add(materiaPrima);
-        int ultimoIndice = getRowCount() - 1;
-        fireTableRowsInserted(ultimoIndice, ultimoIndice);
-    }
-
-    public void removeModel(int indexRow) {
-        listaMateriaPrima.remove(indexRow);
-        fireTableRowsDeleted(indexRow, indexRow);
-    }
-
-    public void atualizarModel(int indiceLinha, MateriaPrima materiaPrima) {
-        listaMateriaPrima.set(indiceLinha, materiaPrima);
-        fireTableRowsUpdated(indiceLinha, indiceLinha);
     }
 
 }

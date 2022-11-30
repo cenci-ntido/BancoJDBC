@@ -265,7 +265,7 @@ public class FrmCompra extends javax.swing.JDialog {
             compra.setId(Integer.parseInt(tfCodigo.getText()));
             compraDao.update(compra);
             compraListModel.atualizarModel(linhaSelecionada, compra);
-            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "PRODUCAO");//Ajuda da prof
+            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "COMPRA");//Ajuda da prof
             materiaPrimaDao.update(compra.getMateriasPrima());
             this.dispose();
 

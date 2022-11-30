@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class ProducaoListModel extends AbstractTableModel {
+public class ProducaoListModel extends AbstractListModelImpl<Producao> {
 
     private List<Producao> listaProducao;
 
@@ -15,16 +15,6 @@ public class ProducaoListModel extends AbstractTableModel {
 
     public ProducaoListModel(List<Producao> listaProducao) {
         this.listaProducao = listaProducao;
-    }
-
-    @Override
-    public int getRowCount() {
-        return listaProducao.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return colunas.length;
     }
 
     @Override
@@ -47,27 +37,6 @@ public class ProducaoListModel extends AbstractTableModel {
                 break;
         }
         return producao;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return colunas[column];
-    }
-
-    public void insertModel(Producao producao) {
-        listaProducao.add(producao);
-        int ultimoIndice = getRowCount() - 1;
-        fireTableRowsInserted(ultimoIndice, ultimoIndice);
-    }
-
-    public void removeModel(int indexRow) {
-        listaProducao.remove(indexRow);
-        fireTableRowsDeleted(indexRow, indexRow);
-    }
-
-    public void atualizarModel(int indiceLinha, Producao producao) {
-        listaProducao.set(indiceLinha, producao);
-        fireTableRowsUpdated(indiceLinha, indiceLinha);
     }
 
 }

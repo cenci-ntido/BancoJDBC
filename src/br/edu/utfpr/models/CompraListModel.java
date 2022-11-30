@@ -19,16 +19,6 @@ public class CompraListModel extends AbstractListModelImpl<Compra> {
     }
 
     @Override
-    public int getRowCount() {
-        return listaCompra.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return colunas.length;
-    }
-
-    @Override
     public Object getValueAt(int row, int column) {
         Compra compra = listaCompra.get(row);
         switch (column) {
@@ -46,30 +36,6 @@ public class CompraListModel extends AbstractListModelImpl<Compra> {
                 break;
         }
         return compra;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return colunas[column];
-    }
-
-    @Override
-    public void insertModel(Compra compra) {
-        listaCompra.add(compra);
-        int ultimoIndice = getRowCount() - 1;
-        fireTableRowsInserted(ultimoIndice, ultimoIndice);
-    }
-
-    @Override
-    public void removeModel(int indexRow) {
-        listaCompra.remove(indexRow);
-        fireTableRowsDeleted(indexRow, indexRow);
-    }
-
-    @Override
-    public void atualizarModel(int indiceLinha, Compra compra) {
-        listaCompra.set(indiceLinha, compra);
-        fireTableRowsUpdated(indiceLinha, indiceLinha);
     }
 
 }
