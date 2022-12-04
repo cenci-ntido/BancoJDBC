@@ -1,10 +1,12 @@
 package br.edu.utfpr.dao.ClassesDao;
 
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 import br.edu.utfpr.dao.AbstractDaoImpl;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.formataData.FormataData;
 import java.util.List;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao inserir Compra: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -55,6 +60,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return mountList();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -71,6 +79,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return false;
         } finally {
             super.closePreparedStatement(pstm);
@@ -90,6 +101,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao retornar o objeto " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         }
     }
@@ -112,6 +126,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return null;
 
         } catch (SQLException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             JOptionPane.showMessageDialog(null, "Não foi possível editar o cadastro: " + ex.getMessage());
             return null;
         } finally {
@@ -132,6 +149,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             return mountList();
 
         } catch (SQLException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             return null;
         } finally {
@@ -154,6 +174,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
             compra.setQuantidade(rs.getFloat("quantidade"));
             return compra;
         } catch (SQLException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         }
     }
@@ -166,6 +189,9 @@ public class CompraDao extends AbstractDaoImpl<Compra> {
                 listaCompra.add(compra);
             }
         } catch (SQLException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(CompraDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaCompra;

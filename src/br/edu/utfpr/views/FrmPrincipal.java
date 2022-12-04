@@ -3,7 +3,11 @@ package br.edu.utfpr.views;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
+import java.io.File;
+
 import javax.swing.JFrame;
+
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 
 public class FrmPrincipal extends javax.swing.JFrame {
 
@@ -137,6 +141,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
             frmPesquisaMateriaPrima.setMaximum(true);
         } catch (PropertyVetoException ex) {
             ex.printStackTrace();
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -147,6 +154,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         try {
             frmPesquisaCompra.setMaximum(true);
         } catch (PropertyVetoException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -158,6 +168,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         try {
             frmPesquisaProducao.setMaximum(true);
         } catch (PropertyVetoException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -179,12 +192,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

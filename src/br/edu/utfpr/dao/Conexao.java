@@ -1,9 +1,12 @@
 package br.edu.utfpr.dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 
 public class Conexao {
 
@@ -18,7 +21,9 @@ public class Conexao {
             conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
             System.out.println("Conectou");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro" + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
+            g.gravar(file, ex.toString());
         }
     }
 
@@ -28,13 +33,13 @@ public class Conexao {
         }
         return instancia;
     }
-//    
-//    public static void main(String[] args) {
-//        getInstance();
-//    }
+    //
+    // public static void main(String[] args) {
+    // getInstance();
+    // }
 
     public Connection getConexao() {
         return conexao;
     }
-    
+
 }

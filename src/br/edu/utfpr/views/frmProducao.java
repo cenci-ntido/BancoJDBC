@@ -1,5 +1,6 @@
 package br.edu.utfpr.views;
 
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.dao.ClassesDao.ProducaoDao;
 import br.edu.utfpr.entidades.MateriaPrima;
@@ -7,6 +8,7 @@ import br.edu.utfpr.entidades.Producao;
 import br.edu.utfpr.formataData.FormataData;
 import br.edu.utfpr.models.ProducaoListModel;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -88,6 +90,9 @@ public class FrmProducao extends javax.swing.JDialog {
         try {
             tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             ex.printStackTrace();
         }
         tfData.setToolTipText("Pressione espaço!");

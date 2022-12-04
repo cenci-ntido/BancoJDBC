@@ -1,9 +1,12 @@
 package br.edu.utfpr.dao.ClassesDao;
 
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 import br.edu.utfpr.dao.AbstractDaoImpl;
 import br.edu.utfpr.entidades.Compra;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.entidades.Producao;
+
+import java.io.File;
 import java.lang.System.Logger;
 import java.util.List;
 import java.sql.PreparedStatement;
@@ -40,6 +43,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             return null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao inserir: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -56,6 +62,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             return mountList();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -71,6 +80,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             return pstm.executeUpdate() > 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return false;
         } finally {
             super.closePreparedStatement(pstm);
@@ -89,6 +101,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             return null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -114,6 +129,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível editar o cadastro: " + ex.getMessage());
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         } finally {
             super.closePreparedStatement(pstm);
@@ -132,7 +150,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             producao.setQuantidade(rs.getFloat("quantidade"));
             return producao;
         } catch (SQLException ex) {
-            ex.getMessage();
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             return null;
         }
     }
@@ -145,6 +165,9 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
                 listaProducao.add(producao);
             }
         } catch (SQLException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(ProducaoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaProducao;

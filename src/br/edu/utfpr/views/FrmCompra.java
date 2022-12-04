@@ -1,5 +1,6 @@
 package br.edu.utfpr.views;
 
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 import br.edu.utfpr.dao.ClassesDao.CompraDao;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.Compra;
@@ -7,6 +8,7 @@ import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.formataData.FormataData;
 import br.edu.utfpr.models.CompraListModel;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.time.LocalDate;
 
 public class FrmCompra extends javax.swing.JDialog {
@@ -91,6 +93,9 @@ public class FrmCompra extends javax.swing.JDialog {
             tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            g.gravar(file, ex.toString());
         }
         tfData.setToolTipText("Pressione espaço!");
         tfData.setPreferredSize(new java.awt.Dimension(35, 24));

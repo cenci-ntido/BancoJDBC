@@ -5,9 +5,11 @@
  */
 package br.edu.utfpr.views;
 
+import br.edu.utfpr.arquivos.GravaErroArquivo;
 import br.edu.utfpr.dao.ClassesDao.MateriaPrimaDao;
 import br.edu.utfpr.entidades.MateriaPrima;
 import br.edu.utfpr.models.MateriaPrimaListModel;
+import java.io.File;
 
 public class FrmMateriaPrima extends javax.swing.JDialog {
 
