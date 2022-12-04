@@ -19,6 +19,7 @@ public class FrmCompra extends javax.swing.JDialog {
     private CompraDao compraDao;
     private boolean edit = false;
     private Compra compra;
+    private Float quantidadeAnt;
 
     public FrmCompra(java.awt.Frame parent, boolean modal, CompraListModel compraListModel) {
         super(parent, modal);
@@ -37,12 +38,14 @@ public class FrmCompra extends javax.swing.JDialog {
         tfCodigo.setText(String.valueOf(compra.getId()));
         tfData.setText(FormataData.localDateToString(compra.getData()));
         tfQuantidade.setText(compra.getQuantidade().toString());
+        Float quantidadeAnt = compra.getQuantidade();
+        this.quantidadeAnt = quantidadeAnt;
         tfValor.setText(compra.getValor().toString());
 
         materiaPrimaDao = new MateriaPrimaDao();
-        materiaPrimaDao.findAll().forEach(mp -> cbMatPrima.addItem(mp)); //carrega todos os clientes
+        materiaPrimaDao.findAll().forEach(mp -> cbMatPrima.addItem(mp));
 
-        //SEM ACESSAR O BANCO NÃO DEU CERTO PRA MIM, PODE TESTAR
+        //SEM ACESSAR O BANCO NÃO DEU CERTO
 //        cbMatPrima.getModel().setSelectedItem(compraListModel.getValueAt(linhaSelecionada, 2)); 
         cbMatPrima.getModel().setSelectedItem(materiaPrimaDao.findById(compra.getMateriasPrima().getId())); //retorna o cliente selecionado na JTable
 
@@ -263,14 +266,22 @@ public class FrmCompra extends javax.swing.JDialog {
         if (!edit) {//inserir
             compraDao.insert(compra);
             compraListModel.insertModel(compra);
-            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "COMPRA");
+            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "AUMENTA");
             materiaPrimaDao.update(compra.getMateriasPrima());
             dispose();
         } else { //editar
             compra.setId(Integer.parseInt(tfCodigo.getText()));
             compraDao.update(compra);
             compraListModel.atualizarModel(linhaSelecionada, compra);
-            compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "COMPRA");//Ajuda da prof
+            Float quantidade;
+            if (compra.getQuantidade() > quantidadeAnt) {//Aumentando a quantidade
+                quantidade = compra.getQuantidade() - quantidadeAnt;
+                compra.getMateriasPrima().atualizarSaldo(quantidade, "AUMENTA");
+            } else {
+                quantidade = quantidadeAnt - compra.getQuantidade();
+                compra.getMateriasPrima().atualizarSaldo(quantidade, "DIMINUI");
+            }
+
             materiaPrimaDao.update(compra.getMateriasPrima());
             this.dispose();
 

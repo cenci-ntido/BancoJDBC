@@ -7,8 +7,8 @@ import javax.swing.table.AbstractTableModel;
 
 public abstract class AbstractListModel<T> extends AbstractTableModel {
 
-    protected List<T> listaObj = new ArrayList();
-    protected String[] colunas = new String[]{};
+    protected List<T> listaObj;
+    protected String[] colunas;
 
     @Override
     public int getColumnCount() {

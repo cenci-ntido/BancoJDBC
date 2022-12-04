@@ -46,6 +46,8 @@ public class FrmPesquisaMateriaPrima extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Filtrar por descrição:");
 
+        tfFiltro.setToolTipText("Exemplo: \"Ov\"");
+
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/icons/arquivo-de-documento.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

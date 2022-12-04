@@ -7,17 +7,16 @@ import java.util.List;
 
 public class CompraListModel extends AbstractListModel<Compra> {
 
-    private List<Compra> listaCompra;
-    private String[] colunas = new String[]{"Código", "Data", "Matéria Prima", "Valor", "Quantidade"};
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
     public CompraListModel(List<Compra> listaCompra) {
-        this.listaCompra = listaCompra;
+        this.listaObj = listaCompra;
+        this.colunas = new String[]{"Código", "Data", "Matéria Prima", "Valor", "Quantidade"};
     }
 
     @Override
     public Object getValueAt(int row, int column) {
-        Compra compra = listaCompra.get(row);
+        Compra compra = listaObj.get(row);
         switch (column) {
             case 0:
                 return compra.getId();

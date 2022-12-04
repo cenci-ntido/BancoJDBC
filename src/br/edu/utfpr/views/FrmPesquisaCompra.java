@@ -172,7 +172,10 @@ public class FrmPesquisaCompra extends javax.swing.JInternalFrame {
             if (opcao == JOptionPane.YES_OPTION) {
                 int idCompra = (int) tbCompras.getValueAt(linhaSelecionada, 0);
                 CompraDao compraDao = new CompraDao();
+//                Compra compra = compraDao.findById(idCompra);
                 if (compraDao.delete(idCompra)) {
+//                    Não consegui resolver o erro pra at saldo quando exclui
+//                    compra.getMateriasPrima().atualizarSaldo(compra.getQuantidade(), "DIMINUI"); 
                     JOptionPane.showMessageDialog(null, "Compra excluída com sucesso!");
                     compraListModel.removeModel(linhaSelecionada);
                 }

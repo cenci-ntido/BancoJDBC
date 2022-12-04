@@ -7,18 +7,16 @@ import javax.swing.table.AbstractTableModel;
 
 public class MateriaPrimaListModel extends AbstractListModel<MateriaPrima> {
 
-    private List<MateriaPrima> listaMateriaPrima;
-
-    private String[] colunas = new String[]{"Código", "Descrição", "Unidade", "Saldo"};
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
-    public MateriaPrimaListModel(List<MateriaPrima> listaMateriaPrima) {
-        this.listaMateriaPrima = listaMateriaPrima;
+    public MateriaPrimaListModel(List<MateriaPrima> listaMp) {
+        this.listaObj = listaMp;
+        this.colunas = new String[]{"Código", "Descrição", "Unidade", "Saldo"};
     }
 
     @Override
     public Object getValueAt(int row, int column) {
-        MateriaPrima materiaPrima = listaMateriaPrima.get(row);
+        MateriaPrima materiaPrima = listaObj.get(row);
         switch (column) {
             case 0:
                 return materiaPrima.getId();

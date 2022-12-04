@@ -33,7 +33,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtModelo = new javax.swing.JTextField();
+        tfFiltro = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProducoes = new javax.swing.JTable();
@@ -65,7 +65,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(tfFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisar)
                 .addContainerGap())
@@ -76,7 +76,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -143,7 +143,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
+        filtro();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
 
@@ -157,7 +157,7 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbProducoes;
-    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 
     private void excluir() {
@@ -193,5 +193,12 @@ public class FrmPesquisaProducao extends javax.swing.JInternalFrame {
             frmProducao.setVisible(true);
             frmProducao.setLocationRelativeTo(null);
         }
+    }
+
+    private void filtro() {
+        ProducaoDao producaoDao = new ProducaoDao();
+        List<Producao> listaFiltrada = producaoDao.filtrarData(tfFiltro.getText());
+        producaoListModel = new ProducaoListModel(listaFiltrada);
+        tbProducoes.setModel(producaoListModel);
     }
 }

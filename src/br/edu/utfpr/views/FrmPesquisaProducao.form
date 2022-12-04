@@ -40,7 +40,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtModelo" pref="280" max="32767" attributes="0"/>
+                  <Component id="tfFiltro" pref="280" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnPesquisar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -53,7 +53,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfFiltro" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -67,7 +67,7 @@
             <Property name="text" type="java.lang.String" value="Filtrar por data:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtModelo">
+        <Component class="javax.swing.JTextField" name="tfFiltro">
         </Component>
         <Component class="javax.swing.JButton" name="btnPesquisar">
           <Properties>

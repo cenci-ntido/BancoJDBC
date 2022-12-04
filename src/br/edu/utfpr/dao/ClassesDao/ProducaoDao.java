@@ -44,7 +44,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao inserir: " + ex.getMessage());
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             return null;
         } finally {
@@ -52,6 +52,30 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             super.closeResultSet(rs);
         }
 
+    }
+
+    public List<Producao> filtrarData(String data) {
+        try {
+            if (data == null || data.equals((String) "")) {
+                pstm = getConn().prepareStatement("SELECT  * from producao");
+                rs = pstm.executeQuery();
+            } else {
+                pstm = getConn().prepareStatement("SELECT  * from producao WHERE \"data\" = '" + data + "'");
+                rs = pstm.executeQuery();
+            }
+
+            return mountList();
+
+        } catch (SQLException ex) {
+            GravaErroArquivo g = new GravaErroArquivo();
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
+            g.gravar(file, ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        } finally {
+            super.closePreparedStatement(pstm);
+            super.closeResultSet(rs);
+        }
     }
 
     @Override
@@ -63,7 +87,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             return null;
         } finally {
@@ -81,7 +105,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex.getMessage());
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             return false;
         } finally {
@@ -102,7 +126,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             return null;
         } finally {
@@ -130,7 +154,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível editar o cadastro: " + ex.getMessage());
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             return null;
         } finally {
@@ -143,6 +167,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
         try {
             MateriaPrima materiaPrima = new MateriaPrima();
             materiaPrima.setId(res.getInt("materiaprima"));
+            
             Producao producao = new Producao();
             producao.setId(rs.getInt("id"));
             producao.setMateriaPrima(materiaPrima);
@@ -151,7 +176,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             return producao;
         } catch (SQLException ex) {
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             return null;
         }
@@ -166,7 +191,7 @@ public class ProducaoDao extends AbstractDaoImpl<Producao> {
             }
         } catch (SQLException ex) {
             GravaErroArquivo g = new GravaErroArquivo();
-            File file = new File(System.getProperty("user.dir") + "/src/log.txt");           
+            File file = new File(System.getProperty("user.dir") + "/src/log.txt");
             g.gravar(file, ex.toString());
             java.util.logging.Logger.getLogger(ProducaoDao.class.getName()).log(Level.SEVERE, null, ex);
         }

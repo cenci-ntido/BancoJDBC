@@ -8,18 +8,16 @@ import javax.swing.table.AbstractTableModel;
 
 public class ProducaoListModel extends AbstractListModel<Producao> {
 
-    private List<Producao> listaProducao;
-
-    private String[] colunas = new String[]{"Código", "Data", "Matéria Prima", "Quantidade"};
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
-    public ProducaoListModel(List<Producao> listaProducao) {
-        this.listaProducao = listaProducao;
+    public ProducaoListModel(List<Producao> listaProd) {
+        this.listaObj = listaProd;
+        this.colunas = new String[]{"Código", "Data", "Matéria Prima", "Quantidade"};
     }
 
     @Override
     public Object getValueAt(int row, int column) {
-        Producao producao = listaProducao.get(row);
+        Producao producao = listaObj.get(row);
         switch (column) {
             case 0:
                 return producao.getId();

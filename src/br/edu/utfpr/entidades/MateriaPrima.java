@@ -64,9 +64,9 @@ public class MateriaPrima {
     }
 
     public void atualizarSaldo(Float quantidade, String operacao) {
-        if (operacao.equals((String) "COMPRA")) {
+        if (operacao.equals((String) "AUMENTA")) {
             saldo += quantidade;
-        } else if (operacao.equals((String) "PRODUCAO")) {
+        } else if (operacao.equals((String) "DIMINUI")) {
             saldo -= quantidade;
         }
 

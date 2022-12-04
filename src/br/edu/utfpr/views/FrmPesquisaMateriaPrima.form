@@ -68,6 +68,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfFiltro">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Exemplo: &quot;Ov&quot;"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnPesquisar">
           <Properties>
