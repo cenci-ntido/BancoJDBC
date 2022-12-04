@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class ProducaoListModel extends AbstractListModelImpl<Producao> {
+public class ProducaoListModel extends AbstractListModel<Producao> {
 
     private List<Producao> listaProducao;
 

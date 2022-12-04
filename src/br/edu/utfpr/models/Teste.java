@@ -10,7 +10,7 @@ import br.edu.utfpr.entidades.Compra;
  *
  * @author thiag
  */
-public class Teste extends AbstractListModelImpl<Compra>{
+public class Teste extends AbstractListModel<Compra>{
 
     @Override
     public int getRowCount() {
